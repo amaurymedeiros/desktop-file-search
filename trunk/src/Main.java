@@ -24,7 +24,7 @@ public class Main {
 	private static IndexWriter indexWriter;
 	private static IndexReader indexReader;
 	private static IndexSearcher indexSearcher;
-	private static String path = "C:\\Users\\daniloaf\\Desktop\\SRI-teste";
+	private static String path = "colecao";
 	private static Analyzer analyzer;
 	private static File root;
 

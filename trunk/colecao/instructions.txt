@@ -1,0 +1,147 @@
+
+****************************************************************
+
+Instructions for completing Domain Template Version Number: 1.3
+
+****************************************************************
+
+
+REGISTERING A NEW DOMAIN NAME 
+
+Section 1
+
+* Item 1a: For domain names under .ZA.ORG or ZA.NET insert the name
+of the domain you wish to register as in, "EXAMPLE.ZA.ORG". The
+total length may be up to 26 characters. The only characters allowed
+in a domain name are letters, digits and the dash (-). A domain
+name cannot begin or end with a dash. The minimum length of any
+third level domain under ZA.NET or ZA.ORG is 3 characters. (ie:
+your domain name without .za.net or .za.org appended to it must be
+longer than 2 characters.)
+
+* Item 1b: Following the colon, type the word "NEW" to indicate a
+new domain name registration.
+
+* Registrant is responsible for the accuracy of name submission; names
+will be registered as submitted; any changes will entail an additional
+registration fee. 
+
+
+Section 2 - Domain Name Registrant 
+
+* The domain name is considered to be registered to a "legal entity",
+even if the legal entity is an individual (e.g., Lee Smith). Do
+not list a "dba" or acronym as the registrant. In this section, it
+is important to list the legal name and address of the Registrant,
+not the Internet Service Provider ("ISP").
+
+* If Item 2d is not applicable for your country, leave that Item
+blank. Items 2a, 2b, 2c and 2e must be completed or the Agreement
+will not be accepted.
+
+* Item 2e may be either the country name or two-letter country
+code. A list of country codes is available at
+"http://www.isi.edu/div7/iana/domain-names.html".
+
+
+Sections 3 & 4 - Contacts 
+
+* The Administrative Contact/Agent is the person or organisation
+authorized by the domain name Registrant to act on behalf of the
+legal entity listed in Item 2a. The Administrative Contact/Agent
+should be able to answer non-technical questions about the legal
+entity's plans for using the domain name and the procedures for
+establishing sub-domains.
+
+* Generally, the Technical Contact is the person or organisation
+who maintains the domain name Registrant's primary name server,
+resolver software, and database files. The Technical Contact person
+keeps the name server running and interacts with technical people
+in other domains to solve problems that affect the domain name. An
+ISP often performs this role.
+
+* Item a - place the name of the Individual or Role being registered.
+For Individuals, supply the full name (firstname first, then
+lastname) Do not use titles. If suffixes are used, such as "Jr."
+or "III", separate the name from the suffix with a comma. For
+example, "Public, John Q., III" For Role contacts, provide the full
+name, for example, "Customer Service Support Center".
+
+* If you leave all fields in the Technical Contact entry blank it
+will be assumed that it should be the same as the Administrative
+Contact.  The Administrative Contact is not optional.
+
+Sections 5, 6 & 7 - Name Servers 
+
+* You need at least 2 nameservers configured in order for your
+application to be accepted.
+
+* Items a and b must be completed in full. Incomplete information
+in Sections 5 and 6 will result in the Agreement being returned.
+Section 7 is optional.
+
+* Most ISP's can provide one or more name servers if you do not
+have your own. Do not list name servers without the explicit approval
+of their owners. The owners of the servers listed must configure
+the servers before your domain name will function.
+
+* If possible, name servers should be in physically separate
+locations and on different networks.
+
+* Provide the fully-qualified name of the machine that is to be
+the name server. For example, use "machinename.domainname.com" not
+just "machinename."
+
+The completed form should be mailed to AUTO-DBM@ZA.NET
+
+
+
+MODIFYING A DOMAIN NAME RECORD 
+
+* Modifying an existing domain name record is done by "replacement".
+This means the contents of various fields in the database are
+replaced with new information from the Registration Agreement.
+
+* The spelling of a domain name cannot be changed by submitting a
+modification Agreement. If you want a domain name with different
+spelling, you must file a New Registration Agreement for the new
+domain name and a Delete Registration Agreement when you are ready
+to have the old name removed.
+
+Completing the form is the same as for a NEW request, Item 1b should
+read MODIFY.
+
+The completed form should be mailed to AUTO-DBM@ZA.NET and MUST
+originate from a current, VALID contact for the domain.
+
+
+DELETING A DOMAIN NAME 
+
+* A request that comes from the Registrant or the Administrative
+Contact/Agent will be honored, providing any security constraints
+are met.
+
+* Notification of a completed deletion request will be sent to the
+contacts currently listed.
+
+* A request that comes from an ISP currently providing name service
+for the domain name may result in the name being placed on hold.
+
+* If the request comes from none of the above, and does not meet
+any security established for the contacts, it will be returned for
+further explanation of the relationship between the requester and
+Registrant.  The Administrative Contact/Agent and the Technical
+Contact will be notified.
+
+* If an ISP removes name service, the domain name may be placed on
+"hold". "Hold" means that the domain name will be visible via
+"whois" but cannot be used.
+
+Completing the form is the same as for a NEW request, Item 1b should
+read DELETE.
+
+The completed form should be mailed to AUTO-DBM@ZA.NET
+
+-----END OF INSTRUCTIONS----- 
+
+
