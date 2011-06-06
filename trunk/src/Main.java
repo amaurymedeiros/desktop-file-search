@@ -49,7 +49,7 @@ public class Main {
 //            	Date min = formatador.parse("06/06/2011 - 03:40");
 //            	Date max = formatador.parse("06/06/2011 - 03:46");
             	Date min = null, max = null;
-    			searcher.search(null,null,tipo, min, max,0);
+    			searcher.search(null,query,tipo, min, max,0,Long.MAX_VALUE);
 			} catch (IndexNotFoundException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");
 			} catch (NoSuchDirectoryException e) {

@@ -100,7 +100,7 @@ public class Searcher {
 	 */
 
 	public void search(String path,String query, String formato, Date min, Date max,
-			long size) throws java.text.ParseException, CorruptIndexException, IOException {
+			long sizeMin, long sizeMax) throws java.text.ParseException, CorruptIndexException, IOException {
 		BooleanQuery q = new BooleanQuery();
 		if(path != null){
 			q.add(new TermQuery(new Term(Indexer.PATH_FIELD, path)),
@@ -128,12 +128,22 @@ public class Searcher {
 		this.indexSearcher.search(q, collector);
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 		System.out.println("Found " + hits.length + " hits.");
+		
 		for (int i = 0; i < hits.length; ++i) {
+			boolean date_ok = false;
+			boolean size_ok = false;
 			int docId = hits[i].doc;
 			Document doc = indexSearcher.doc(docId);
+			String doc_size = doc.get(Indexer.SIZE_FIELD);
+			long size = Long.valueOf(doc_size);
 			String doc_data = doc.get(Indexer.DATE_FIELD);
 			Date d = DateTools.stringToDate(doc_data);
 			if (d.before(m2) && d.after(m1)) {
+				date_ok = true;
+			}if(sizeMin < size && size < sizeMax){
+				size_ok = true;
+			}
+			if(date_ok && size_ok){
 				System.out.println((i + 1) + ". " + doc.get("path"));
 			}
 		}
