@@ -5,8 +5,10 @@ import java.util.Scanner;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.index.IndexNotFoundException;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.NoSuchDirectoryException;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 
@@ -19,15 +21,17 @@ public class Main {
 		File root = new File(path);
 		try {
 			Directory indexDir = new SimpleFSDirectory(new File("indices"));
-			Indexer indexer = new Indexer(root, indexDir, analyzer);
+			
 			//Pergunta se deseja reindexar.
 			System.out
 					.println("Voce gostaria de realizar uma indexação na sua coleção? (S para sim, qualquer outra coisa para não)");
 			Scanner sc = new Scanner(System.in);
 			String resp = sc.nextLine();
+			
 			if (resp.trim().toLowerCase().equals("s")) {
+				Indexer indexer = new Indexer(root, indexDir, analyzer);
 				indexer.indexAll();
-			}
+			} 
 				
 
 			String query = "roofing";
@@ -37,6 +41,8 @@ public class Main {
     					analyzer, hitsPerPage);
     			searcher.search();
 			} catch (IndexNotFoundException e) {
+				System.out.println("Sua coleção ainda não foi indexada.");
+			} catch (NoSuchDirectoryException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");
 			}
 			
