@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/lucene-core-3.2.0.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/daniloaf/Desktop/projeto-sri/lib/lucene-core-3.2.0-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/amaury/ES2/projeto-sri/lib/lucene-core-3.2.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/lucene-analyzers-3.2.0.jar">
@@ -17,5 +17,24 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/daniloaf/Desktop/projeto-sri/lib/lucene-demo-3.2.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox-0.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-stax-api_1.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-highlighter-3.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-queryparser-3.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/nekohtml-1.9.9.jar"/>
+	<classpathentry kind="lib" path="lib/ooxml-schemas-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-0.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.5-beta6.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.5-beta6.jar"/>
+	<classpathentry kind="lib" path="lib/poi-scratchpad-3.5-beta6.jar"/>
+	<classpathentry kind="lib" path="lib/tika-core-0.4.jar"/>
+	<classpathentry kind="lib" path="lib/tika-parsers-0.4.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis-1.0.b2.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

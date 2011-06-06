@@ -127,7 +127,8 @@ public class Searcher {
 				hitsPerPage, true);
 		this.indexSearcher.search(q, collector);
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
-		System.out.println("Found " + hits.length + " hits.");
+		
+		int quant_results = 0;
 		
 		for (int i = 0; i < hits.length; ++i) {
 			boolean date_ok = false;
@@ -144,9 +145,10 @@ public class Searcher {
 				size_ok = true;
 			}
 			if(date_ok && size_ok){
-				System.out.println((i + 1) + ". " + doc.get("path"));
+				System.out.println((++quant_results) + ". " + doc.get("path"));
 			}
 		}
+		System.out.println("Total: " + quant_results + " resultados.");
 		
 	}
 
