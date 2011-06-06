@@ -1,8 +1,10 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.lucene.index.IndexNotFoundException;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
@@ -16,17 +18,29 @@ public class Main {
 				BrazilianAnalyzer.getDefaultStopSet());
 		File root = new File(path);
 		try {
-			Directory d = new SimpleFSDirectory(root);
-			Indexer indexer = new Indexer(root, d, analyzer);
-			indexer.indexAll();
+			Directory indexDir = new SimpleFSDirectory(new File("indices"));
+			Indexer indexer = new Indexer(root, indexDir, analyzer);
+			//Pergunta se deseja reindexar.
+			System.out
+					.println("Voce gostaria de realizar uma indexação na sua coleção? (S para sim, qualquer outra coisa para não)");
+			Scanner sc = new Scanner(System.in);
+			String resp = sc.nextLine();
+			if (resp.trim().toLowerCase().equals("s")) {
+				indexer.indexAll();
+			}
+				
 
 			String query = "roofing";
 			int hitsPerPage = 10;
+            try {
+            	Searcher searcher = new Searcher(indexDir, query, "contents",
+    					analyzer, hitsPerPage);
+    			searcher.search();
+			} catch (IndexNotFoundException e) {
+				System.out.println("Sua coleção ainda não foi indexada.");
+			}
+			
 
-			
-			Searcher searcher = new Searcher(d, query, "contents", analyzer, hitsPerPage);
-			searcher.search();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
