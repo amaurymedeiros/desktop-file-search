@@ -7,17 +7,17 @@ import java.util.Scanner;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.index.IndexNotFoundException;
-import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NoSuchDirectoryException;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Main {
+    // No combobox da interface nao colocar so a extensao. Colocar mais info.
+	// Ex: Arquivos de texto (.txt), Arquivos python (.py), etc.
+	private static String[] formats = {"txt", "pdf", "doc", "py"};
 
-	private static String[] formats = {"txt", "pdf", "doc"};
-
-	public static void main(String[] args) throws java.text.ParseException, ParseException {
+	public static void main(String[] args) throws java.text.ParseException {
 		String path = "colecao";
 		Analyzer analyzer = new BrazilianAnalyzer(Version.LUCENE_32,
 				BrazilianAnalyzer.getDefaultStopSet());
@@ -37,18 +37,39 @@ public class Main {
 			} 
 				
 
-			String query = "roofing";
+			String query = "";
+			System.out.println("Digite a consulta que quer realizar:");
+			query = sc.nextLine().trim();
+			
 			int hitsPerPage = 10;
             try {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
             	//searcher.search()
-            	String tipo = null;
-            	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
+            	System.out.println("Digite o tipo de arquivo que quer pesquisar. (Tipos invalidos serao desconsiderados).");
+            	String tipo = sc.nextLine().trim();
+            	String dateFormat = "dd/MM/yyyy - hh:mm";
+            	SimpleDateFormat formatador = new SimpleDateFormat(dateFormat);
+
             	
-//            	Date min = formatador.parse("06/06/2011 - 03:40");
-//            	Date max = formatador.parse("06/06/2011 - 03:46");
-            	Date min = null, max = null;
+            	System.out.println("Formato das datas: " + dateFormat);
+            	System.out.println("Informe a data de inicio. Datas invalidas serao desconsideradas.");
+            	
+            	Date min;
+				try {
+					min = formatador.parse(sc.nextLine().trim());
+				} catch (java.text.ParseException e) {
+					min = null;
+				}
+				System.out.println("Informe a data final. Datas invalidas serao desconsideradas.");
+            	Date max;
+				try {
+					max = formatador.parse(sc.nextLine().trim());
+				} catch (java.text.ParseException e) {
+					max = null;
+				}
+            	
+            	
     			searcher.search(null,query,tipo, min, max,0,Long.MAX_VALUE);
 			} catch (IndexNotFoundException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");
