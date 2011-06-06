@@ -15,7 +15,7 @@ import org.apache.lucene.util.Version;
 
 public class Main {
 
-	private static String[] formats = {"txt","pdf"};
+	private static String[] formats = {"txt", "pdf", "doc"};
 
 	public static void main(String[] args) throws java.text.ParseException {
 		String path = "colecao";
@@ -37,17 +37,18 @@ public class Main {
 			} 
 				
 
-			String query = "ara";
+			String query = "Steve";
 			int hitsPerPage = 10;
             try {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
             	//searcher.search()
-            	String tipo = "txt";
+            	String tipo = "doc";
             	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
             	
-            	Date min = formatador.parse("06/06/2011 - 03:40");
-            	Date max = formatador.parse("06/06/2011 - 03:46");
+//            	Date min = formatador.parse("06/06/2011 - 03:40");
+//            	Date max = formatador.parse("06/06/2011 - 03:46");
+            	Date min = null, max = null;
     			searcher.search(tipo, min, max);
 			} catch (IndexNotFoundException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");

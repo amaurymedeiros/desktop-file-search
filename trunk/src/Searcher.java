@@ -26,7 +26,6 @@ public class Searcher {
 	private String field;
 	private Analyzer analyzer;
 	private int hitsPerPage;
-	private String[] formats;
 
 	public Searcher(Directory d, String query, String field, Analyzer analyzer,
 			int hitsPerPage) throws CorruptIndexException, IOException {
@@ -42,7 +41,7 @@ public class Searcher {
 				.parse(this.query);
 
 		TopScoreDocCollector collector = TopScoreDocCollector.create(
-				hitsPerPage, true);
+				hitsPerPage, true);	
 		this.indexSearcher.search(q, collector);
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 		System.out.println("Found " + hits.length + " hits.");

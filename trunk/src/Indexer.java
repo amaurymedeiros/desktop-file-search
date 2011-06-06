@@ -23,6 +23,7 @@ public class Indexer {
 	static final String DATE_FIELD = "modified";
 	static final String PATH_FIELD = "path";
 	static final String CONTENT_FIELD = "contents";
+	
 	public Indexer(File file, Directory d, Analyzer analyzer)
 			throws CorruptIndexException, LockObtainFailedException,
 			IOException {
