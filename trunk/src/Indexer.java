@@ -21,9 +21,10 @@ public class Indexer {
 	public Indexer(File file, Directory d, Analyzer analyzer) throws CorruptIndexException, LockObtainFailedException, IOException {
 		this.analyzer = analyzer;
 		this.root = file;
-		this.indexWriter = new IndexWriter(d, new IndexWriterConfig(
-				Version.LUCENE_32, this.analyzer));
-
+		IndexWriterConfig config = new IndexWriterConfig(
+				Version.LUCENE_32, this.analyzer);
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+		this.indexWriter = new IndexWriter(d, config);
 	}
 
 	private void indexFiles(File file)
@@ -71,6 +72,10 @@ public class Indexer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void close() throws CorruptIndexException, IOException {
+		this.indexWriter.close();
 	}
 
 }
