@@ -8,9 +8,11 @@ Para fazer busca:
     
 TODO:
 
-- Filtro por tipo (Cho tava trabalhando nisso)
+- Filtro por tipo:
+    - Fazer parser de cada um dos tipos. Já tá rolando, verificação da extensão do arquivo.
 
 - Filtro por data
+    - Falta testar
 
 - Sumarização
-     - Highlight (Danilo Investigando)
+     - Highlight (Danilo Deu uma olhada. NullPointer.)
