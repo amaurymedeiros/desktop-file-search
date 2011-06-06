@@ -1,0 +1,6 @@
+Para fazer busca:
+
+- Fornecer 3 opções:
+    - Procurar pela exata frase
+    - Pesquisar por documentos que contenham TODAS as palavras das pesquisas
+    - Pesquisar por documentos que contenham alguma(s) das palavras
