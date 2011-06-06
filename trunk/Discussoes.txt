@@ -4,3 +4,16 @@ Para fazer busca:
     - Procurar pela exata frase
     - Pesquisar por documentos que contenham TODAS as palavras das pesquisas
     - Pesquisar por documentos que contenham alguma(s) das palavras
+    
+    
+TODO:
+
+- Filtro por tipo (Cho tava trabalhando nisso)
+
+- Filtro por data
+
+- Sumarização
+     - Highlight (Danilo Investigando)
+     
+- Opção no Main de realizar uma reindexação. (Amaury tava trabalhando  nisso).
+    - Possibilidade de usar indexReader (Danilo investigando/investigou).
