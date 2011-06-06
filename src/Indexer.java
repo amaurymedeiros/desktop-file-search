@@ -23,6 +23,7 @@ public class Indexer {
 	static final String DATE_FIELD = "modified";
 	static final String PATH_FIELD = "path";
 	static final String CONTENT_FIELD = "contents";
+	static final String SIZE_FIELD = "size";
 	
 	public Indexer(File file, Directory d, Analyzer analyzer)
 			throws CorruptIndexException, LockObtainFailedException,
@@ -68,6 +69,7 @@ public class Indexer {
 					doc.add(new Field(CONTENT_FIELD, fr));
 					doc.add(new Field(PATH_FIELD, file.getAbsolutePath(),
 							Field.Store.YES, Field.Index.ANALYZED));
+					doc.add(new Field(SIZE_FIELD,String.valueOf(file.length()),Field.Store.YES, Field.Index.ANALYZED));
 					for (String format : formats) {
 						if (file.getName().endsWith(format)) {
 							// System.out.println("Entrou AQUI!");
