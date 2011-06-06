@@ -41,7 +41,7 @@ public class Searcher {
 				.parse(this.query);
 
 		TopScoreDocCollector collector = TopScoreDocCollector.create(
-				hitsPerPage, true);	
+				hitsPerPage, true);
 		this.indexSearcher.search(q, collector);
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 		System.out.println("Found " + hits.length + " hits.");
@@ -51,20 +51,21 @@ public class Searcher {
 			System.out.println((i + 1) + ". " + doc.get("path"));
 		}
 	}
-	
-	public void search(Date min, Date max) throws ParseException, IOException, java.text.ParseException {
+
+	public void search(Date min, Date max) throws ParseException, IOException,
+			java.text.ParseException {
 		Query q = new QueryParser(Version.LUCENE_32, this.field, this.analyzer)
 				.parse(this.query);
 
-        Date m1 = min;
-        Date m2 = max;
-        if(min == null){
-        	m1 = new Date(0);
-        }
-        if(max == null){
-        	m2 = new Date(Calendar.getInstance().getTimeInMillis());
-        }
-		
+		Date m1 = min;
+		Date m2 = max;
+		if (min == null) {
+			m1 = new Date(0);
+		}
+		if (max == null) {
+			m2 = new Date(Calendar.getInstance().getTimeInMillis());
+		}
+
 		TopScoreDocCollector collector = TopScoreDocCollector.create(
 				hitsPerPage, true);
 		this.indexSearcher.search(q, collector);
@@ -76,57 +77,52 @@ public class Searcher {
 			String doc_data = doc.get(Indexer.DATE_FIELD);
 			Date d = DateTools.stringToDate(doc_data);
 			System.out.println((i + 1) + ". " + doc.get("path"));
-			if(d.before(m2) && d.after(m1)){
+			if (d.before(m2) && d.after(m1)) {
 				System.out.println((i + 1) + ". " + doc.get("path"));
 			}
 		}
 	}
-	
-/*	public void search(String formato) throws ParseException, IOException {
+
+	/*
+	 * public void search(String formato) throws ParseException, IOException {
+	 * BooleanQuery q = new BooleanQuery(); q.add( new TermQuery(new
+	 * Term(Indexer.FORMATO_FIELD,formato)), BooleanClause.Occur.MUST ); q.add(
+	 * new TermQuery(new Term(this.field,this.query)), BooleanClause.Occur.MUST
+	 * );
+	 * 
+	 * //Query fin = q.mergeBooleanQueries(q) TopScoreDocCollector collector =
+	 * TopScoreDocCollector.create( hitsPerPage, true);
+	 * this.indexSearcher.search(q, collector); ScoreDoc[] hits =
+	 * collector.topDocs().scoreDocs; System.out.println("Found " + hits.length
+	 * + " hits."); for (int i = 0; i < hits.length; ++i) { int docId =
+	 * hits[i].doc; Document doc = indexSearcher.doc(docId);
+	 * System.out.println((i + 1) + ". " + doc.get("path")); } }
+	 */
+
+	public void search(String path,String query, String formato, Date min, Date max,
+			long size) throws java.text.ParseException, CorruptIndexException, IOException {
 		BooleanQuery q = new BooleanQuery();
-        q.add(
-                new TermQuery(new Term(Indexer.FORMATO_FIELD,formato)), 
-                BooleanClause.Occur.MUST
-        );
-        q.add(
-                new TermQuery(new Term(this.field,this.query)), 
-                BooleanClause.Occur.MUST
-        );
-		
-		//Query fin = q.mergeBooleanQueries(q)
-		TopScoreDocCollector collector = TopScoreDocCollector.create(
-				hitsPerPage, true);
-		this.indexSearcher.search(q, collector);
-		ScoreDoc[] hits = collector.topDocs().scoreDocs;
-		System.out.println("Found " + hits.length + " hits.");
-		for (int i = 0; i < hits.length; ++i) {
-			int docId = hits[i].doc;
-			Document doc = indexSearcher.doc(docId);
-			System.out.println((i + 1) + ". " + doc.get("path"));
+		if(path != null){
+			q.add(new TermQuery(new Term(Indexer.PATH_FIELD, path)),
+					BooleanClause.Occur.MUST);
 		}
-	}*/
+		if (query != null) {
+			q.add(new TermQuery(new Term(Indexer.CONTENT_FIELD, query)),
+					BooleanClause.Occur.MUST);
+		}
+		if (formato != null) {
+			q.add(new TermQuery(new Term(Indexer.FORMATO_FIELD, formato)),
+					BooleanClause.Occur.MUST);
+		}
+		Date m1 = min;
+		Date m2 = max;
+		if (min == null) {
+			m1 = new Date(0);
+		}
+		if (max == null) {
+			m2 = new Date(Calendar.getInstance().getTimeInMillis());
+		}
 		
-	public void search(String formato,Date min, Date max) throws ParseException, IOException, java.text.ParseException {
-		BooleanQuery q = new BooleanQuery();
-        q.add(
-                new TermQuery(new Term(Indexer.FORMATO_FIELD,formato)), 
-                BooleanClause.Occur.MUST
-        );
-        q.add(
-                new TermQuery(new Term(this.field,this.query)), 
-                BooleanClause.Occur.MUST
-        );
-        
-        Date m1 = min;
-        Date m2 = max;
-        if(min == null){
-        	m1 = new Date(0);
-        }
-        if(max == null){
-        	m2 = new Date(Calendar.getInstance().getTimeInMillis());
-        }
-		
-		//Query fin = q.mergeBooleanQueries(q)
 		TopScoreDocCollector collector = TopScoreDocCollector.create(
 				hitsPerPage, true);
 		this.indexSearcher.search(q, collector);
@@ -137,12 +133,45 @@ public class Searcher {
 			Document doc = indexSearcher.doc(docId);
 			String doc_data = doc.get(Indexer.DATE_FIELD);
 			Date d = DateTools.stringToDate(doc_data);
-			if(d.before(m2) && d.after(m1)){
+			if (d.before(m2) && d.after(m1)) {
+				System.out.println((i + 1) + ". " + doc.get("path"));
+			}
+		}
+		
+	}
+
+	public void search(String formato, Date min, Date max)
+			throws ParseException, IOException, java.text.ParseException {
+		BooleanQuery q = new BooleanQuery();
+		q.add(new TermQuery(new Term(Indexer.FORMATO_FIELD, formato)),
+				BooleanClause.Occur.MUST);
+		q.add(new TermQuery(new Term(this.field, this.query)),
+				BooleanClause.Occur.MUST);
+
+		Date m1 = min;
+		Date m2 = max;
+		if (min == null) {
+			m1 = new Date(0);
+		}
+		if (max == null) {
+			m2 = new Date(Calendar.getInstance().getTimeInMillis());
+		}
+
+		// Query fin = q.mergeBooleanQueries(q)
+		TopScoreDocCollector collector = TopScoreDocCollector.create(
+				hitsPerPage, true);
+		this.indexSearcher.search(q, collector);
+		ScoreDoc[] hits = collector.topDocs().scoreDocs;
+		System.out.println("Found " + hits.length + " hits.");
+		for (int i = 0; i < hits.length; ++i) {
+			int docId = hits[i].doc;
+			Document doc = indexSearcher.doc(docId);
+			String doc_data = doc.get(Indexer.DATE_FIELD);
+			Date d = DateTools.stringToDate(doc_data);
+			if (d.before(m2) && d.after(m1)) {
 				System.out.println((i + 1) + ". " + doc.get("path"));
 			}
 		}
 	}
-	
-	
 
 }

@@ -17,7 +17,7 @@ public class Main {
 
 	private static String[] formats = {"txt", "pdf", "doc"};
 
-	public static void main(String[] args) throws java.text.ParseException {
+	public static void main(String[] args) throws java.text.ParseException, ParseException {
 		String path = "colecao";
 		Analyzer analyzer = new BrazilianAnalyzer(Version.LUCENE_32,
 				BrazilianAnalyzer.getDefaultStopSet());
@@ -37,19 +37,19 @@ public class Main {
 			} 
 				
 
-			String query = "Steve";
+			String query = "roofing";
 			int hitsPerPage = 10;
             try {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
             	//searcher.search()
-            	String tipo = "doc";
+            	String tipo = "txt";
             	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
             	
 //            	Date min = formatador.parse("06/06/2011 - 03:40");
 //            	Date max = formatador.parse("06/06/2011 - 03:46");
             	Date min = null, max = null;
-    			searcher.search(tipo, min, max);
+    			searcher.search(null,null,tipo, min, max,0);
 			} catch (IndexNotFoundException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");
 			} catch (NoSuchDirectoryException e) {
@@ -58,8 +58,6 @@ public class Main {
 			
 
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
