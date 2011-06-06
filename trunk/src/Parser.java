@@ -43,5 +43,8 @@ public class Parser {
 	public String getFormat() {
 		return format;
 	}
+	public void close() throws IOException{
+		is.close();
+	}
 	
 }
