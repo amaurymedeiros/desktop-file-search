@@ -12,6 +12,8 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
+import org.apache.tika.exception.TikaException;
+import org.xml.sax.SAXException;
 
 public class Indexer {
 
@@ -24,6 +26,7 @@ public class Indexer {
 	static final String PATH_FIELD = "path";
 	static final String CONTENT_FIELD = "contents";
 	static final String SIZE_FIELD = "size";
+	private static final String AUTHOR_FIELD = "author";
 	
 	public Indexer(File file, Directory d, Analyzer analyzer)
 			throws CorruptIndexException, LockObtainFailedException,
@@ -60,13 +63,18 @@ public class Indexer {
 				}
 			} else {
 				System.out.println("adding " + file);
-				FileReader fr = null;
+				Parser p = new Parser(file);
 				try {
-					fr = new FileReader(file);
+					p.load();
 					Document doc = new Document();
 					doc.add(new Field(DATE_FIELD,DateTools.timeToString(file.lastModified(), DateTools.Resolution.MINUTE),Field.Store.YES,  
 					        Field.Index.NOT_ANALYZED));
-					doc.add(new Field(CONTENT_FIELD, fr));
+					String content = p.getContent();
+					if(content != null)
+					doc.add(new Field(CONTENT_FIELD, content,Field.Store.YES, Field.Index.ANALYZED));
+					String author = p.getAuthor();
+					if(author != null)
+					doc.add(new Field(AUTHOR_FIELD,author,Field.Store.YES, Field.Index.ANALYZED));
 					doc.add(new Field(PATH_FIELD, file.getAbsolutePath(),
 							Field.Store.YES, Field.Index.ANALYZED));
 					doc.add(new Field(SIZE_FIELD,String.valueOf(file.length()),Field.Store.YES, Field.Index.ANALYZED));
@@ -85,8 +93,12 @@ public class Indexer {
 				// checking if the file can be read doesn't help
 				catch (IOException e) {
 					System.out.println("Ignorando o arquivo " + file);
-				} finally {
-					fr.close();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Impossivel acessar  " + file);
+				} catch (TikaException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Impossivel traduzir  " + file);
 				}
 			}
 		}
