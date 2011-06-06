@@ -43,7 +43,7 @@ public class Main {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
             	//searcher.search()
-            	String tipo = "txt";
+            	String tipo = null;
             	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
             	
 //            	Date min = formatador.parse("06/06/2011 - 03:40");
