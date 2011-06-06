@@ -86,6 +86,7 @@ public class Indexer {
 							break;
 						}
 					}
+					p.close();
 					this.indexWriter.addDocument(doc);
 				}
 				// at least on windows, some temporary files raise this
