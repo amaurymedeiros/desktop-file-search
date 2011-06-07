@@ -1,11 +1,16 @@
 package gui;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -22,6 +27,11 @@ import javax.swing.*;
 */
 public class MainWindow extends javax.swing.JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	{
 		//Set Look & Feel
 		try {
@@ -34,13 +44,13 @@ public class MainWindow extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
 	private JMenu jMenu5;
+	private JLabel labelTitulo;
 	private JCheckBox checkPDF;
 	private JCheckBox checkOdt;
 	private JCheckBox checkTxt;
 	private JLabel Tipos;
 	private JButton botaoPesquisar;
 	private JTextField areaPesquisa;
-	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JButton botaoReindexar;
 	private JTextField areaResultados;
@@ -70,21 +80,20 @@ public class MainWindow extends javax.swing.JFrame {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			this.setFont(new java.awt.Font("Catull",0,18));
-			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("media/PCS.png")).getImage());
+			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("gui/imagens/PCS.png")).getImage());
 			this.setTitle("PCS Desktop Searcher");
-			{
-				jLabel1 = new JLabel();
-				jLabel1.setText("PCS Desktop Searcher");
-				jLabel1.setFont(new java.awt.Font("Catull",1,26));
-			}
 			{
 				areaResultados = new JTextField();
 				areaResultados.setEditable(false);
 				areaResultados.setOpaque(false);
 			}
 			{
+				labelTitulo = new JLabel();
+				labelTitulo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("gui/imagens/header.png")));
+			}
+			{
 				jLabel2 = new JLabel();
-				jLabel2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("media/PCS.png")));
+				jLabel2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("gui/imagens/PCS.png")));
 			}
 			{
 				botaoReindexar = new JButton();
@@ -117,8 +126,8 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
-				.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-				.addGap(35)
+				.addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+				.addGap(24)
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 				    .addComponent(areaPesquisa, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 				    .addComponent(botaoPesquisar, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
@@ -128,47 +137,52 @@ public class MainWindow extends javax.swing.JFrame {
 				    .addComponent(checkTxt, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				    .addComponent(checkOdt, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				    .addComponent(checkPDF, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(21)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 				.addComponent(areaResultados, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jLabel2, GroupLayout.Alignment.LEADING, 0, 64, Short.MAX_VALUE)
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addGap(25)
-				        .addComponent(botaoReindexar, 0, 27, Short.MAX_VALUE)
-				        .addGap(12)))
-				.addContainerGap());
-			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-				.addContainerGap()
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(thisLayout.createSequentialGroup()
+				        .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 0, Short.MAX_VALUE))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addGap(26)
+				        .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 11, Short.MAX_VALUE)))
+				.addContainerGap());
+			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
+				.addGap(7)
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(areaResultados, GroupLayout.Alignment.LEADING, 0, 694, Short.MAX_VALUE)
+				    .addGroup(thisLayout.createSequentialGroup()
+				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				        .addGroup(thisLayout.createParallelGroup()
-				            .addComponent(areaPesquisa, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 588, GroupLayout.PREFERRED_SIZE)
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+				                .addGap(0, 560, Short.MAX_VALUE))
+				            .addGroup(thisLayout.createSequentialGroup()
+				                .addGap(7)
 				                .addGroup(thisLayout.createParallelGroup()
 				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				                        .addComponent(Tipos, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				                        .addComponent(checkTxt, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+				                        .addGroup(thisLayout.createParallelGroup()
+				                            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                                .addComponent(checkTxt, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+				                                .addComponent(checkOdt, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+				                                .addComponent(checkPDF, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+				                                .addGap(297)
+				                                .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+				                                .addGap(0, 0, Short.MAX_VALUE))
+				                            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                                .addPreferredGap(checkTxt, labelTitulo, LayoutStyle.ComponentPlacement.INDENT)
+				                                .addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				                                .addGap(0, 58, Short.MAX_VALUE)))
+				                        .addGap(11))
 				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                        .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-				                        .addGap(26)))
-				                .addComponent(checkOdt, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-				                .addGroup(thisLayout.createParallelGroup()
-				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                        .addComponent(checkPDF, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-				                        .addGap(241))
-				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                        .addGap(26)
-				                        .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 289, GroupLayout.PREFERRED_SIZE)))
-				                .addGap(75)))
-				        .addGroup(thisLayout.createParallelGroup()
-				            .addComponent(jLabel2, GroupLayout.Alignment.LEADING, 0, 99, Short.MAX_VALUE)
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addGap(8)
-				                .addComponent(botaoPesquisar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-				                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE))))
-				    .addComponent(areaResultados, GroupLayout.Alignment.LEADING, 0, 687, Short.MAX_VALUE))
+				                        .addComponent(areaPesquisa, GroupLayout.PREFERRED_SIZE, 588, GroupLayout.PREFERRED_SIZE)
+				                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				                        .addComponent(botaoPesquisar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+				                        .addGap(0, 0, Short.MAX_VALUE)))))))
 				.addContainerGap());
 			this.setSize(719, 486);
 			{
