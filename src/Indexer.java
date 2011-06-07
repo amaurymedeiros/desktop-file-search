@@ -23,10 +23,12 @@ public class Indexer {
 	static final String FORMATO_FIELD = "type";
 	static final String DATE_FIELD = "modified";
 	static final String PATH_FIELD = "path";
+	static final String NAME_FIELD = "name";
 	static final String CONTENT_FIELD = "contents";
 	static final String SIZE_FIELD = "size";
+	static final String[] FIELDS = { NAME_FIELD, CONTENT_FIELD };
 	private static final String AUTHOR_FIELD = "author";
-	
+
 	public Indexer(File file, Directory d, Analyzer analyzer)
 			throws CorruptIndexException, LockObtainFailedException,
 			IOException {
@@ -53,6 +55,9 @@ public class Indexer {
 	private void indexFiles(File file) throws IOException {
 		if (file.canRead()) {
 			if (file.isDirectory()) {
+				if (file.getName().startsWith(".")) {
+					return;
+				}
 				String[] files = file.list();
 				// an IO error could occur
 				if (files != null) {
@@ -66,17 +71,24 @@ public class Indexer {
 				try {
 					p.load();
 					Document doc = new Document();
-					doc.add(new Field(DATE_FIELD,DateTools.timeToString(file.lastModified(), DateTools.Resolution.MINUTE),Field.Store.YES,  
-					        Field.Index.NOT_ANALYZED));
+					doc.add(new Field(DATE_FIELD, DateTools.timeToString(
+							file.lastModified(), DateTools.Resolution.MINUTE),
+							Field.Store.YES, Field.Index.NOT_ANALYZED));
 					String content = p.getContent();
-					if(content != null)
-					doc.add(new Field(CONTENT_FIELD, content,Field.Store.YES, Field.Index.ANALYZED));
+					if (content != null)
+						doc.add(new Field(CONTENT_FIELD, content,
+								Field.Store.YES, Field.Index.ANALYZED));
 					String author = p.getAuthor();
-					if(author != null)
-					doc.add(new Field(AUTHOR_FIELD,author,Field.Store.YES, Field.Index.ANALYZED));
+					if (author != null)
+						doc.add(new Field(AUTHOR_FIELD, author,
+								Field.Store.YES, Field.Index.ANALYZED));
 					doc.add(new Field(PATH_FIELD, file.getAbsolutePath(),
+							Field.Store.YES, Field.Index.NOT_ANALYZED));
+					doc.add(new Field(NAME_FIELD, file.getName(),
 							Field.Store.YES, Field.Index.ANALYZED));
-					doc.add(new Field(SIZE_FIELD,String.valueOf(file.length()),Field.Store.YES, Field.Index.ANALYZED));
+					doc.add(new Field(SIZE_FIELD,
+							String.valueOf(file.length()), Field.Store.YES,
+							Field.Index.ANALYZED));
 					for (String format : formats) {
 						if (file.getName().endsWith(format)) {
 							// System.out.println("Entrou AQUI!");
@@ -94,10 +106,8 @@ public class Indexer {
 				catch (IOException e) {
 					System.out.println("Ignorando o arquivo " + file);
 				} catch (SAXException e) {
-					// TODO Auto-generated catch block
 					System.out.println("Impossivel acessar  " + file);
 				} catch (TikaException e) {
-					// TODO Auto-generated catch block
 					System.out.println("Impossivel traduzir  " + file);
 				}
 			}
