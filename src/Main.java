@@ -32,7 +32,7 @@ public class Main {
 			String resp = sc.nextLine();
 			
 			if (resp.trim().toLowerCase().equals("s")) {
-				Indexer indexer = new Indexer(root, indexDir, analyzer,formats );
+				Indexer indexer = new Indexer(root, indexDir, analyzer,formats);
 				indexer.indexAll();
 			} 
 				
@@ -40,13 +40,17 @@ public class Main {
 			String query = "";
 			System.out.println("Digite a consulta que quer realizar:");
 			query = sc.nextLine().trim();
+			query = query.equals("") ? null : query;
 			
 			int hitsPerPage = 10;
             try {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
+            	
             	System.out.println("Digite o tipo de arquivo que quer pesquisar. (Tipos invalidos serao desconsiderados).");
             	String tipo = sc.nextLine().trim();
+            	tipo = tipo.equals("") ? null : tipo;
+            	
             	String dateFormat = "dd/MM/yyyy - hh:mm";
             	SimpleDateFormat formatador = new SimpleDateFormat(dateFormat);
 
