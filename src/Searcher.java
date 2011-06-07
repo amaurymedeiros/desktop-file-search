@@ -27,7 +27,7 @@ public class Searcher {
 		this.hitsPerPage = hitsPerPage;
 	}
 
-	public void search(String path,String query, String formato, Date min, Date max,
+	public void search(String path,String query, String[] formato, Date min, Date max,
 			long sizeMin, long sizeMax) throws java.text.ParseException, CorruptIndexException, IOException {
 		BooleanQuery q = new BooleanQuery();
 		if(path != null){
@@ -38,9 +38,13 @@ public class Searcher {
 			q.add(new TermQuery(new Term(Indexer.CONTENT_FIELD, query)),
 					BooleanClause.Occur.MUST);
 		}
-		if (formato != null) {
-			q.add(new TermQuery(new Term(Indexer.FORMATO_FIELD, formato)),
-					BooleanClause.Occur.MUST);
+		if (formato != null && formato.length > 0) {
+			BooleanQuery aux = new BooleanQuery();
+			for(String n : formato){
+				aux.add(new TermQuery(new Term(Indexer.FORMATO_FIELD, n)),
+						BooleanClause.Occur.SHOULD);
+			}
+			q.add(aux,BooleanClause.Occur.MUST);
 		}
 		Date m1 = min;
 		Date m2 = max;
