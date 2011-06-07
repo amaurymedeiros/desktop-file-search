@@ -16,7 +16,7 @@ import org.apache.lucene.util.Version;
 public class Main {
     // No combobox da interface nao colocar so a extensao. Colocar mais info.
 	// Ex: Arquivos de texto (.txt), Arquivos python (.py), etc.
-	private static String[] formats = {"txt", "pdf", "docx", "py"};
+	private static String[] formats = {"txt", "pdf", "docx", "py", "c", "cpp", "java"};
 
 	
 	public static void main(String[] args) throws java.text.ParseException, ParseException {
@@ -43,11 +43,8 @@ public class Main {
 			System.out.println("Digite a consulta que quer realizar:");
 			query = sc.nextLine().trim();
 			query = query.equals("") ? null : query;
-			query = "Hurricane";
 			int hitsPerPage = 10;
             try {
-            	Searcher searcher = new Searcher(indexDir, query, "contents",
-    					analyzer, hitsPerPage);
             	
             	System.out.println("Digite o tipo de arquivo que quer pesquisar. (Tipos invalidos serao desconsiderados).");
             	String tipo = sc.nextLine().trim();
@@ -73,7 +70,17 @@ public class Main {
 				} catch (java.text.ParseException e) {
 					max = null;
 				}
-				String[] format = {"txt"};
+				
+				System.out.println("Quantos resultados gostaria de exibir?");
+				try {
+					hitsPerPage = Integer.parseInt(sc.nextLine().trim());
+				} catch (Exception e){
+					//
+				}
+				Searcher searcher = new Searcher(indexDir, query, "contents",
+    					analyzer, hitsPerPage);
+				
+				String[] format = {"py"};
 				
     			searcher.search(null,query,format, min, max,0,Long.MAX_VALUE);
 				//searcher.search();
