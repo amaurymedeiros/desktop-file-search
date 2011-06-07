@@ -71,9 +71,9 @@ public class Main {
 				} catch (java.text.ParseException e) {
 					max = null;
 				}
-            	
-            	
-    			searcher.search(null,query,tipo, min, max,0,Long.MAX_VALUE);
+				String[] format = {"txt"};
+				
+    			searcher.search(null,query,format, min, max,0,Long.MAX_VALUE);
 			} catch (IndexNotFoundException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");
 			} catch (NoSuchDirectoryException e) {
