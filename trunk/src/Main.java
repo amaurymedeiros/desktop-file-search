@@ -7,6 +7,7 @@ import java.util.Scanner;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
 import org.apache.lucene.index.IndexNotFoundException;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NoSuchDirectoryException;
 import org.apache.lucene.store.SimpleFSDirectory;
@@ -17,7 +18,8 @@ public class Main {
 	// Ex: Arquivos de texto (.txt), Arquivos python (.py), etc.
 	private static String[] formats = {"txt", "pdf", "docx", "py"};
 
-	public static void main(String[] args) throws java.text.ParseException {
+	
+	public static void main(String[] args) throws java.text.ParseException, ParseException {
 		String path = "colecao";
 		Analyzer analyzer = new BrazilianAnalyzer(Version.LUCENE_32,
 				BrazilianAnalyzer.getDefaultStopSet());
@@ -41,7 +43,7 @@ public class Main {
 			System.out.println("Digite a consulta que quer realizar:");
 			query = sc.nextLine().trim();
 			query = query.equals("") ? null : query;
-			
+			query = "Hurricane";
 			int hitsPerPage = 10;
             try {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
@@ -74,6 +76,7 @@ public class Main {
 				String[] format = {"txt"};
 				
     			searcher.search(null,query,format, min, max,0,Long.MAX_VALUE);
+				//searcher.search();
 			} catch (IndexNotFoundException e) {
 				System.out.println("Sua coleção ainda não foi indexada.");
 			} catch (NoSuchDirectoryException e) {
