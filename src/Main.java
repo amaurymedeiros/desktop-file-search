@@ -16,7 +16,7 @@ import org.apache.lucene.util.Version;
 public class Main {
     // No combobox da interface nao colocar so a extensao. Colocar mais info.
 	// Ex: Arquivos de texto (.txt), Arquivos python (.py), etc.
-	private static String[] formats = {"txt", "pdf", "docx", "py", "c", "cpp", "java"};
+	private static String[] formats = {"txt", "pdf", "doc", "py", "c", "java"};
 
 	
 	public static void main(String[] args) throws java.text.ParseException, ParseException {
@@ -80,7 +80,7 @@ public class Main {
 				Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
 				
-				String[] format = {"py"};
+				String[] format = {"doc"};
 				
     			searcher.search(null,query,format, min, max,0,Long.MAX_VALUE);
 				//searcher.search();
