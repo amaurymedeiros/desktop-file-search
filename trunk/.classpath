@@ -36,5 +36,12 @@
 	<classpathentry kind="lib" path="lib/tika-parsers-0.4.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/forms.jar" sourcepath="lib/forms-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Documents%20and%20Settings/Felipe%20Vieira/workspace/projeto-sri/lib/forms-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Arquivos de programas/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.6.2.v3659c.jar"/>
+	<classpathentry kind="lib" path="lib/looks-2.1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
