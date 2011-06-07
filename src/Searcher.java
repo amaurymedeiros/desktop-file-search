@@ -7,13 +7,17 @@ import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.util.Version;
 
 public class Searcher {
 
@@ -21,28 +25,34 @@ public class Searcher {
 
 	private int hitsPerPage;
 
+	private Analyzer analyzer;
+
 	public Searcher(Directory d, String query, String field, Analyzer analyzer,
 			int hitsPerPage) throws CorruptIndexException, IOException {
 		this.indexSearcher = new IndexSearcher(d, true);
 		this.hitsPerPage = hitsPerPage;
+		this.analyzer = analyzer;
 	}
+	
+
 
 	public void search(String path,String query, String[] formato, Date min, Date max,
-			long sizeMin, long sizeMax) throws java.text.ParseException, CorruptIndexException, IOException {
+			long sizeMin, long sizeMax) throws java.text.ParseException, CorruptIndexException, IOException, ParseException {
 		BooleanQuery q = new BooleanQuery();
+			
 		if(path != null){
-			q.add(new TermQuery(new Term(Indexer.PATH_FIELD, path)),
-					BooleanClause.Occur.MUST);
+			Query q12 = new QueryParser(Version.LUCENE_32, Indexer.PATH_FIELD, analyzer).parse(path);
+			q.add(q12,BooleanClause.Occur.MUST);
 		}
 		if (query != null) {
-			q.add(new TermQuery(new Term(Indexer.CONTENT_FIELD, query)),
-					BooleanClause.Occur.MUST);
+			Query q13 = new QueryParser(Version.LUCENE_32, Indexer.CONTENT_FIELD, analyzer).parse(query);
+			q.add(q13,BooleanClause.Occur.MUST);
 		}
 		if (formato != null && formato.length > 0) {
 			BooleanQuery aux = new BooleanQuery();
 			for(String n : formato){
-				aux.add(new TermQuery(new Term(Indexer.FORMATO_FIELD, n)),
-						BooleanClause.Occur.SHOULD);
+				Query q14 = new QueryParser(Version.LUCENE_32, Indexer.FORMATO_FIELD, analyzer).parse(n);
+				aux.add(q14,BooleanClause.Occur.SHOULD);
 			}
 			q.add(aux,BooleanClause.Occur.MUST);
 		}
@@ -61,7 +71,7 @@ public class Searcher {
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 		
 		int quant_results = 0;
-		
+		System.out.println("Total: " + hits.length + " resultados.");
 		for (int i = 0; i < hits.length; ++i) {
 			boolean date_ok = false;
 			boolean size_ok = false;
@@ -82,7 +92,6 @@ public class Searcher {
 				System.out.println(this.indexSearcher.explain(q, docId).toString());
 			}
 		}
-		System.out.println("Total: " + quant_results + " resultados.");
 		
 	}
 
