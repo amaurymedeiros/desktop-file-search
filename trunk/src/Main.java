@@ -15,7 +15,7 @@ import org.apache.lucene.util.Version;
 public class Main {
     // No combobox da interface nao colocar so a extensao. Colocar mais info.
 	// Ex: Arquivos de texto (.txt), Arquivos python (.py), etc.
-	private static String[] formats = {"txt", "pdf", "doc", "py"};
+	private static String[] formats = {"txt", "pdf", "docx", "py"};
 
 	public static void main(String[] args) throws java.text.ParseException {
 		String path = "colecao";
@@ -45,7 +45,6 @@ public class Main {
             try {
             	Searcher searcher = new Searcher(indexDir, query, "contents",
     					analyzer, hitsPerPage);
-            	//searcher.search()
             	System.out.println("Digite o tipo de arquivo que quer pesquisar. (Tipos invalidos serao desconsiderados).");
             	String tipo = sc.nextLine().trim();
             	String dateFormat = "dd/MM/yyyy - hh:mm";
