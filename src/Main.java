@@ -1,7 +1,9 @@
 import java.io.File;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -26,7 +28,7 @@ public class Main {
 				BrazilianAnalyzer.getDefaultStopSet());
 		File root = new File(path);
 		try {
-			Directory indexDir = new SimpleFSDirectory(new File("indices"));
+			Directory indexDir = new SimpleFSDirectory(new File("indices"));			
 
 			// Pergunta se deseja reindexar.
 			System.out
@@ -82,7 +84,7 @@ public class Main {
 				}
 				Searcher searcher = new Searcher(indexDir, analyzer, hitsPerPage);
 
-				String result = searcher.search(query, formats, min, max, 0,
+				List<ResultadoDeBusca> result = searcher.search(query, formats, min, max, 0,
 						Long.MAX_VALUE);
 				System.out.println(result);
 				// searcher.search();

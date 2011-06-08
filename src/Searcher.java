@@ -1,6 +1,8 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.DateTools;
@@ -33,11 +35,11 @@ public class Searcher {
 		this.analyzer = analyzer;
 	}
 
-	public String search(String query, String[] formato, Date min, Date max,
+	public List<ResultadoDeBusca> search(String query, String[] formato, Date min, Date max,
 			long sizeMin, long sizeMax) throws java.text.ParseException,
 			CorruptIndexException, IOException, ParseException {
 		BooleanQuery q = new BooleanQuery();
-		String result = "";
+		List<ResultadoDeBusca> resultados = new ArrayList<ResultadoDeBusca>();
 
 		if (query != null) {
 			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
@@ -71,8 +73,8 @@ public class Searcher {
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
 		int quant_results = 0;
-		result += "Total: " + hits.length + " resultados. \n";
 		for (int i = 0; i < hits.length; ++i) {
+			ResultadoDeBusca r = new ResultadoDeBusca();
 			boolean date_ok = false;
 			boolean size_ok = false;
 			int docId = hits[i].doc;
@@ -88,11 +90,13 @@ public class Searcher {
 				size_ok = true;
 			}
 			if (date_ok && size_ok) {
-				result += (++quant_results) + ". " + doc.get("path") + "\n";
-				result += "Sumario: \n";
-				result += this.indexSearcher.explain(q, docId).toString() + "\n";
+				r.setPath(doc.get("path"));
+				r.setSumario(this.indexSearcher.explain(q, docId).toString());	
+				resultados.add(r);
 			}
+			
+			
 		}
-		return result;
+		return resultados;
 	}
 }
