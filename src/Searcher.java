@@ -33,10 +33,11 @@ public class Searcher {
 		this.analyzer = analyzer;
 	}
 
-	public void search(String query, String[] formato, Date min, Date max,
+	public String search(String query, String[] formato, Date min, Date max,
 			long sizeMin, long sizeMax) throws java.text.ParseException,
 			CorruptIndexException, IOException, ParseException {
 		BooleanQuery q = new BooleanQuery();
+		String result = "";
 
 		if (query != null) {
 			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
@@ -70,7 +71,7 @@ public class Searcher {
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
 		int quant_results = 0;
-		System.out.println("Total: " + hits.length + " resultados.");
+		result += "Total: " + hits.length + " resultados. \n";
 		for (int i = 0; i < hits.length; ++i) {
 			boolean date_ok = false;
 			boolean size_ok = false;
@@ -87,12 +88,11 @@ public class Searcher {
 				size_ok = true;
 			}
 			if (date_ok && size_ok) {
-				System.out.println((++quant_results) + ". " + doc.get("path"));
-				System.out.println("Sumário:");
-				System.out.println(this.indexSearcher.explain(q, docId)
-						.toString());
+				result += (++quant_results) + ". " + doc.get("path") + "\n";
+				result += "Sumario: \n";
+				result += this.indexSearcher.explain(q, docId).toString() + "\n";
 			}
 		}
-
+		return result;
 	}
 }
