@@ -30,7 +30,7 @@ public class Main {
 
 			// Pergunta se deseja reindexar.
 			System.out
-					.println("Voce gostaria de realizar uma indexação na sua coleção? (S para sim, qualquer outra coisa para não)");
+					.println("Voce gostaria de realizar uma indexaï¿½ï¿½o na sua coleï¿½ï¿½o? (S para sim, qualquer outra coisa para nï¿½o)");
 			Scanner sc = new Scanner(System.in);
 			String resp = sc.nextLine();
 
@@ -82,13 +82,14 @@ public class Main {
 				}
 				Searcher searcher = new Searcher(indexDir, analyzer, hitsPerPage);
 
-				searcher.search(query, formats, min, max, 0,
+				String result = searcher.search(query, formats, min, max, 0,
 						Long.MAX_VALUE);
+				System.out.println(result);
 				// searcher.search();
 			} catch (IndexNotFoundException e) {
-				System.out.println("Sua coleção ainda não foi indexada.");
+				System.out.println("Sua coleï¿½ï¿½o ainda nï¿½o foi indexada.");
 			} catch (NoSuchDirectoryException e) {
-				System.out.println("Sua coleção ainda não foi indexada.");
+				System.out.println("Sua coleï¿½ï¿½o ainda nï¿½o foi indexada.");
 			}
 
 		} catch (IOException e) {
