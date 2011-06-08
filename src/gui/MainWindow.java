@@ -73,7 +73,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private JSpinner spinnerMinutosInicial;
 	private JLabel doispontos;
 	private JSpinner spinnerHoraInicial;
-	private JLabel Início;
+	private JLabel Inicio;
 	private JLabel jLabel1;
 	private JPanel panelData;
 	private JCheckBox checkTudo;
@@ -195,9 +195,9 @@ public class MainWindow extends javax.swing.JFrame {
 					});
 				}
 				{
-					Início = new JLabel();
-					Início.setText("Início");
-					Início.setEnabled(false);
+					Inicio = new JLabel();
+					Inicio.setText("Início");
+					Inicio.setEnabled(false);
 				}
 				{
 					spinnerHoraInicial = new JSpinner( new SpinnerNumberModel(12, 0, 23, 1));
@@ -263,7 +263,7 @@ public class MainWindow extends javax.swing.JFrame {
 					                    .addComponent(Hora, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					                    .addComponent(jLabel5, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)))
 					            .addGroup(GroupLayout.Alignment.LEADING, panelDataLayout.createSequentialGroup()
-					                .addComponent(Início, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					                .addComponent(Inicio, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 					                .addGap(27))
 					            .addGroup(GroupLayout.Alignment.LEADING, panelDataLayout.createSequentialGroup()
 					                .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
@@ -299,7 +299,7 @@ public class MainWindow extends javax.swing.JFrame {
 					    .addComponent(checkFiltraData, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
 					    .addComponent(jLabel1, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(25)
-					.addComponent(Início, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(Inicio, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					.addGroup(panelDataLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					    .addComponent(spinnerMinutosInicial, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -628,7 +628,7 @@ public class MainWindow extends javax.swing.JFrame {
 		spinnerHoraInicial.setEnabled(checkFiltraData.isSelected());
 		spinnerMinutoFinal.setEnabled(checkFiltraData.isSelected());
 		spinnerMinutosInicial.setEnabled(checkFiltraData.isSelected());
-		Início.setEnabled(checkFiltraData.isSelected());
+		Inicio.setEnabled(checkFiltraData.isSelected());
 		jLabel5.setEnabled(checkFiltraData.isSelected());
 		jLabel4.setEnabled(checkFiltraData.isSelected());
 		jLabel3.setEnabled(checkFiltraData.isSelected());
