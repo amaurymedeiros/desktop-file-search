@@ -26,7 +26,7 @@ public class Indexer {
 	static final String NAME_FIELD = "name";
 	static final String CONTENT_FIELD = "contents";
 	static final String SIZE_FIELD = "size";
-	static final String[] FIELDS = { NAME_FIELD, CONTENT_FIELD };
+	static final String[] FIELDS = { NAME_FIELD, CONTENT_FIELD, FORMATO_FIELD };
 	private static final String AUTHOR_FIELD = "author";
 
 	public Indexer(File file, Directory d, Analyzer analyzer)
