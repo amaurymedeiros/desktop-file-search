@@ -17,7 +17,7 @@ public class Facade {
 	private Directory indexDir;
 	private Analyzer analyzer;
 	
-	public void facede() throws IOException {
+	public void Facade() throws IOException {
 		indexDir = new SimpleFSDirectory(new File("indices"));
 		analyzer = new BrazilianAnalyzer(Version.LUCENE_32,
 				BrazilianAnalyzer.getDefaultStopSet());
