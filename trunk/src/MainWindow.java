@@ -1,11 +1,18 @@
+import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +20,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -20,10 +28,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -31,6 +42,8 @@ import net.sf.nachocalendar.CalendarFactory;
 import net.sf.nachocalendar.components.DateField;
 
 import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexNotFoundException;
+import org.apache.lucene.store.NoSuchDirectoryException;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -130,6 +143,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private JMenuBar jMenuBar1;
 	private ArrayList<JCheckBox> listaCheckBoxes = new ArrayList<JCheckBox>();
 	private JFileChooser chooser;
+	private List<ResultadoDeBusca> resultados;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -143,6 +157,20 @@ public class MainWindow extends javax.swing.JFrame {
 		super();
 		initGUI();
 		this.setResizable(false);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		
+		this.addWindowListener(new WindowAdapter()  
+	      {  
+	         public void windowClosing (WindowEvent e)  
+	         {  
+	            int resposta = JOptionPane.showConfirmDialog(null,"Deseja finalizar o PCS Desktop Searcher?","Finalizar",JOptionPane.YES_NO_OPTION);  
+	            if (resposta == 0)  
+	             {  
+	               System.exit(0);  
+	            }  
+	         }  
+	      }); 
+		
 	}
 	
 	private void initGUI() {
@@ -155,6 +183,11 @@ public class MainWindow extends javax.swing.JFrame {
 			{
 				areaResultados = new JList();
 				areaResultados.setFont(new java.awt.Font("Tahoma",0,14));
+				areaResultados.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent evt) {
+						areaResultadosMouseClicked(evt);
+					}
+				});
 			}
 			{
 				panel = new JPanel();
@@ -163,7 +196,7 @@ public class MainWindow extends javax.swing.JFrame {
 				panel.setOpaque(false);
 				{
 					labelResultadoPagina = new JLabel();
-					labelResultadoPagina.setText("Número de Resultados");
+					labelResultadoPagina.setText("Nï¿½mero de Resultados");
 				}
 				{
 					numeroResultados = new JSpinner(new SpinnerNumberModel(10, 1, 10, 1));
@@ -189,12 +222,15 @@ public class MainWindow extends javax.swing.JFrame {
 				panelDiretorio.setOpaque(false);
 				{
 					labelDiretorio = new JLabel();
-					labelDiretorio.setText("Diretório a Indexar:");
+					labelDiretorio.setText("Diretï¿½rio a Indexar:");
 					labelDiretorio.setFont(new java.awt.Font("Tahoma",1,14));
 				}
 				{
 					labelNomeDiretorio = new JLabel();
-					labelNomeDiretorio.setText(System.getProperty("user.dir")+"\\colecao");
+					if(System.getProperty("user.dir").contains("/"))
+						labelNomeDiretorio.setText(System.getProperty("user.dir")+"/colecao");
+					else
+						labelNomeDiretorio.setText(System.getProperty("user.dir")+"\\colecao");
 					labelNomeDiretorio.setFont(new java.awt.Font("Tahoma",0,14));
 				}
 				{
@@ -256,7 +292,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				{
 					Inicio = new JLabel();
-					Inicio.setText("Início");
+					Inicio.setText("Inï¿½cio");
 					Inicio.setEnabled(false);
 				}
 				{
@@ -461,7 +497,18 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 			{
 				botaoReindexar = new JButton();
-				botaoReindexar.setText("Reindexar Coleção");
+				botaoReindexar.setText("Reindexar Coleï¿½ï¿½o");
+				botaoReindexar.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent evt) {
+						try {
+							botaoReindexarMouseClicked(evt);
+						} catch (CorruptIndexException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 			{
 				Tipos = new JLabel();
@@ -480,16 +527,12 @@ public class MainWindow extends javax.swing.JFrame {
 						try {
 							botaoPesquisarMouseClicked(evt);
 						} catch (CorruptIndexException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (org.apache.lucene.queryParser.ParseException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -616,6 +659,14 @@ public class MainWindow extends javax.swing.JFrame {
 		
 	}
 	
+	
+	private void botaoReindexarMouseClicked(MouseEvent evt) throws CorruptIndexException, IOException {
+		Facade f = new Facade();
+		String[] tiposSuportados = { "txt", "pdf", "doc", "docx", "py", "c", "cpp",
+				"java", "ppt", ".xls", ".xlsx", ".ods" };
+		f.index(labelNomeDiretorio.getText(), tiposSuportados);
+	}
+	
 	private void botaoPesquisarMouseClicked(MouseEvent evt) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException {
 		if(semFiltros()) {
 			return;
@@ -634,15 +685,21 @@ public class MainWindow extends javax.swing.JFrame {
 		int hitsPerPage = (Integer) numeroResultados.getValue();
 		
 		Facade f = new Facade();
-		List<ResultadoDeBusca> resultados = f.search(tipos, hitsPerPage, valorDataInicial, valorDataFinal, busca);		
-		
-		
+		try{
+			resultados = f.search(tipos, hitsPerPage, valorDataInicial, valorDataFinal, busca);
+		} catch (IndexNotFoundException e) {
+			JOptionPane.showMessageDialog(this,"Sua colecao ainda nao foi indexada.","Alerta",javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		} catch (NoSuchDirectoryException e) {
+			JOptionPane.showMessageDialog(this,"Sua colecao ainda nao foi indexada.","Alerta",javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+				
 		String[] data = new String[resultados.size()];
 		for(int i = 0; i < resultados.size(); i++) {			
 			data[i] = resultados.get(i).getPath();
 		}
 		
-		System.out.println(data);
 		areaResultados.setListData(data);
 	}
 
@@ -839,7 +896,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private JLabel getJLabel8() {
 		if(jLabel8 == null) {
 			jLabel8 = new JLabel();
-			jLabel8.setText("Códigos Fonte");
+			jLabel8.setText("Cï¿½digos Fonte");
 		}
 		return jLabel8;
 	}
@@ -951,7 +1008,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private void botaoConfigurarDiretorioMouseClicked(MouseEvent evt) {
 		chooser = new JFileChooser(); 
 	    chooser.setCurrentDirectory(new java.io.File("."));
-	    chooser.setDialogTitle("Selecione o diretório da indexação");
+	    chooser.setDialogTitle("Selecione o diretï¿½rio da indexaï¿½ï¿½o");
 	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
 	    chooser.setAcceptAllFileFilterUsed(false);
@@ -969,5 +1026,59 @@ public class MainWindow extends javax.swing.JFrame {
 		}
 		return labelResultados;
 	}
-
+	
+	private void areaResultadosMouseClicked(MouseEvent evt) {
+		if (areaResultados.getSelectedValue() != null){
+			JFrame detalhes = new JFrame("Detalhes");
+			detalhes.setSize(500, 400);
+			detalhes.setResizable(false);
+			detalhes.setVisible(true);
+			
+			
+			Container contentPane = detalhes.getContentPane();
+			BoxLayout vBox = new BoxLayout(contentPane, 1);
+			contentPane.setLayout(vBox);
+			
+			Container inner = new Container();
+			BoxLayout hBox = new BoxLayout(inner, 0);
+			inner.setLayout(hBox);
+			
+			contentPane.add(inner);
+			
+			final String path = resultados.get(areaResultados.getSelectedIndex()).getPath();
+			String nome = "";
+			if (path.contains("\'"))
+				nome = path.split("\'")[path.split("\'").length - 1];
+			else
+				nome = path.split("/")[path.split("/").length - 1];
+			inner.add(new JLabel("Arquivo: " +  nome + "        "));
+			
+			JButton abrirArquivo = new JButton("Abrir arquivo");
+			
+			abrirArquivo.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent evt) {
+					try {
+						abrirArquivoMouseClicked(evt, path);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			inner.add(abrirArquivo);
+			
+			JTextArea sumario = new JTextArea(resultados.get(areaResultados.getSelectedIndex()).getSumario());
+			JScrollPane scroll = new JScrollPane(sumario); 
+			contentPane.add(scroll);
+		}
+	}
+	
+	private void abrirArquivoMouseClicked(MouseEvent evt, String path) throws IOException {
+		File file = new File(path);
+		Desktop desktop = null;
+		if (Desktop.isDesktopSupported()) {
+	        desktop  = Desktop.getDesktop();
+	        desktop.open(file);
+		}
+		System.out.println("abrir o arquivo que esta aqui: " + path);
+	}
 }
