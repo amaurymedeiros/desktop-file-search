@@ -6,6 +6,7 @@ N=len(serie)
 prima=([(i-serie[0])%N for i in serie])
 inverso=([(N-i)%N for i in serie])
 
+contas 
 #Calculo da matriz serial
 dif=([(inverso[i]-inverso[0])%N for i in range(N)])
 matriz=[]
