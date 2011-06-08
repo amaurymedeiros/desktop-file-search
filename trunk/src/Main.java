@@ -19,7 +19,7 @@ public class Main {
 	// No combobox da interface nao colocar so a extensao. Colocar mais info.
 	// Ex: Arquivos de texto (.txt), Arquivos python (.py), etc.
 	private static String[] formats = { "txt", "pdf", "doc", "docx", "py", "c", "cpp",
-			"java" };
+			"java", "ppt", ".xls", ".xlsx", ".ods" };
 
 	public static void main(String[] args) throws java.text.ParseException,
 			ParseException {
@@ -32,7 +32,7 @@ public class Main {
 
 			// Pergunta se deseja reindexar.
 			System.out
-					.println("Voce gostaria de realizar uma indexaï¿½ï¿½o na sua coleï¿½ï¿½o? (S para sim, qualquer outra coisa para nï¿½o)");
+					.println("Voce gostaria de realizar uma indexação na sua coleção? (S para sim, qualquer outra coisa para não)");
 			Scanner sc = new Scanner(System.in);
 			String resp = sc.nextLine();
 
@@ -82,6 +82,7 @@ public class Main {
 				} catch (Exception e) {
 					//
 				}
+
 				Searcher searcher = new Searcher(indexDir, analyzer, hitsPerPage);
 
 				List<ResultadoDeBusca> result = searcher.search(query, formats, min, max, 0,
@@ -89,9 +90,9 @@ public class Main {
 				System.out.println(result);
 				// searcher.search();
 			} catch (IndexNotFoundException e) {
-				System.out.println("Sua coleï¿½ï¿½o ainda nï¿½o foi indexada.");
+				System.out.println("Sua coleção ainda não foi indexada.");
 			} catch (NoSuchDirectoryException e) {
-				System.out.println("Sua coleï¿½ï¿½o ainda nï¿½o foi indexada.");
+				System.out.println("Sua coleção ainda não foi indexada.");
 			}
 
 		} catch (IOException e) {
