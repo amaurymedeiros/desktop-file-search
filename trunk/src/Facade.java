@@ -1,7 +1,9 @@
 import java.io.File;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
@@ -17,7 +19,7 @@ public class Facade {
 	private Directory indexDir;
 	private Analyzer analyzer;
 	
-	public void Facade() throws IOException {
+	public Facade() throws IOException {
 		indexDir = new SimpleFSDirectory(new File("indices"));
 		analyzer = new BrazilianAnalyzer(Version.LUCENE_32,
 				BrazilianAnalyzer.getDefaultStopSet());
@@ -31,9 +33,9 @@ public class Facade {
 	}
 	
 	
-	public String search( String[] formats, int hitsPerPage, Date dataInicial, Date dataFinal, String query) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException{
+	public List<ResultadoDeBusca> search( String[] formats, int hitsPerPage, Date dataInicial, Date dataFinal, String query) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException{
 		Searcher searcher = new Searcher(indexDir, analyzer, hitsPerPage);
-		String result = searcher.search(query, formats, dataInicial, dataFinal, 0, Long.MAX_VALUE);
+		List<ResultadoDeBusca> result = searcher.search(query, formats, dataInicial, dataFinal, 0, Long.MAX_VALUE);
 		return result;
 	}
 	
