@@ -102,10 +102,9 @@ public class MainWindow extends javax.swing.JFrame {
 	private JCheckBox checkXls;
 	private JCheckBox checkPptx;
 	private JCheckBox checkboxDOC;
+	private JCheckBox checkBoxFiltraTipo;
 	private JLabel labelResultados;
 	private JCheckBox checkboxSelecionarTudo;
-	private JTextField outrosTipos;
-	private JLabel jLabel10;
 	private JCheckBox checkboxXLSX;
 	private JCheckBox checkboxXLS;
 	private JCheckBox checkboxODS;
@@ -183,6 +182,8 @@ public class MainWindow extends javax.swing.JFrame {
 			{
 				areaResultados = new JList();
 				areaResultados.setFont(new java.awt.Font("Tahoma",0,14));
+				areaResultados.setBackground(new java.awt.Color(255,255,255));
+				areaResultados.setOpaque(false);
 				areaResultados.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						areaResultadosMouseClicked(evt);
@@ -196,7 +197,7 @@ public class MainWindow extends javax.swing.JFrame {
 				panel.setOpaque(false);
 				{
 					labelResultadoPagina = new JLabel();
-					labelResultadoPagina.setText("Nï¿½mero de Resultados");
+					labelResultadoPagina.setText("Numero Máximo de Resultados");
 				}
 				{
 					numeroResultados = new JSpinner(new SpinnerNumberModel(10, 1, 10, 1));
@@ -204,9 +205,9 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 						panelLayout.setHorizontalGroup(panelLayout.createSequentialGroup()
 					.addComponent(labelResultadoPagina, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 					.addComponent(numeroResultados, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(0, 8, Short.MAX_VALUE));
+					.addGap(0, 8, GroupLayout.PREFERRED_SIZE));
 						panelLayout.setVerticalGroup(panelLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(panelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -222,7 +223,7 @@ public class MainWindow extends javax.swing.JFrame {
 				panelDiretorio.setOpaque(false);
 				{
 					labelDiretorio = new JLabel();
-					labelDiretorio.setText("Diretï¿½rio a Indexar:");
+					labelDiretorio.setText("Diretorio a Indexar:");
 					labelDiretorio.setFont(new java.awt.Font("Tahoma",1,14));
 				}
 				{
@@ -292,7 +293,7 @@ public class MainWindow extends javax.swing.JFrame {
 				}
 				{
 					Inicio = new JLabel();
-					Inicio.setText("Inï¿½cio");
+					Inicio.setText("Inicio");
 					Inicio.setEnabled(false);
 				}
 				{
@@ -497,7 +498,7 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 			{
 				botaoReindexar = new JButton();
-				botaoReindexar.setText("Reindexar Coleï¿½ï¿½o");
+				botaoReindexar.setText("Reindexar Colecao");
 				botaoReindexar.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						try {
@@ -555,23 +556,26 @@ public class MainWindow extends javax.swing.JFrame {
 				        .addGap(12)
 				        .addGroup(thisLayout.createParallelGroup()
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-				                .addGap(11))
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addComponent(Tipos, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				                .addGroup(thisLayout.createParallelGroup()
+				                    .addComponent(getCheckBoxFiltraTipo(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+				                    .addComponent(Tipos, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				                .addComponent(getPanelTipos(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))))
-				.addGap(0, 22, Short.MAX_VALUE)
+				                .addComponent(getPanelTipos(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+				                .addGap(11)))))
+				.addGap(22)
 				.addComponent(getLabelResultados(), GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addComponent(areaResultados, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(areaResultados, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jLabel2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+				    .addGroup(thisLayout.createSequentialGroup()
+				        .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addGap(0, 24, GroupLayout.PREFERRED_SIZE)
-				        .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-				        .addGap(13))));
+				        .addGap(34)
+				        .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(12, Short.MAX_VALUE));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addGap(7)
 				.addGroup(thisLayout.createParallelGroup()
@@ -597,17 +601,19 @@ public class MainWindow extends javax.swing.JFrame {
 				        .addGroup(thisLayout.createParallelGroup()
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				                .addComponent(Tipos, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				                .addGap(346))
-				            .addComponent(getPanelTipos(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)
+				                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				                .addComponent(getCheckBoxFiltraTipo(), GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+				                .addGap(230))
+				            .addComponent(getPanelTipos(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				                .addGap(18)
 				                .addComponent(getLabelResultados(), GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-				                .addGap(322)))
-				        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				        .addComponent(panel, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-				        .addGap(36)
+				                .addGap(239)))
+				        .addGap(23)
+				        .addComponent(panel, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+				        .addGap(50)
 				        .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 0, Short.MAX_VALUE)))
+				        .addGap(0, 13, Short.MAX_VALUE)))
 				.addContainerGap());
 			this.setSize(1034, 737);
 			{
@@ -668,12 +674,25 @@ public class MainWindow extends javax.swing.JFrame {
 	}
 	
 	private void botaoPesquisarMouseClicked(MouseEvent evt) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException {
-		if(semFiltros()) {
+		if(areaPesquisa.getText().length() < 1) {
+			JOptionPane.showMessageDialog(new JFrame(), "Digite a expressao a ser pesquisada", 
+					"Erro",
+			        JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
+		System.out.println("Sem filtros: "+semFiltros());
+		if(checkBoxFiltraTipo.isSelected() && semFiltros()) {
+			JOptionPane.showMessageDialog(new JFrame(), "Selecione algum filtro e realize a pesquisa", 
+					"Erro",
+			        JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
 		String busca = areaPesquisa.getText();
-		String[] tipos = montaTipos();
+		String[] tipos = checkBoxFiltraTipo.isSelected() ? montaTipos() : new String[0];
+		System.out.println(tipos.length);
 		Date valorDataInicial = null;
 		Date valorDataFinal = null;
 		
@@ -699,8 +718,21 @@ public class MainWindow extends javax.swing.JFrame {
 		for(int i = 0; i < resultados.size(); i++) {			
 			data[i] = resultados.get(i).getPath();
 		}
+		String[] semResultados = {"Nenhum Resultado Encontrado"};
 		
 		areaResultados.setListData(data);
+		
+		if(resultados.size() < 1) {
+			areaResultados.setListData(semResultados);
+		}
+		
+		if(resultados.size() > 0 ) {
+			areaResultados.setEnabled(true);
+		}
+		
+		else {
+			areaResultados.setEnabled(false);
+		}
 	}
 
 	private boolean semFiltros() {
@@ -709,11 +741,6 @@ public class MainWindow extends javax.swing.JFrame {
 				return false;
 			}
 		}
-		
-		if(outrosTipos.getText().split(";").length > 0 && outrosTipos.getText().split(";")[0].trim().length() > 0) {
-			return false;
-		}
-		
 		return true;
 	}
 
@@ -725,11 +752,6 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 		}
 		
-		for(String s: outrosTipos.getText().split(";")) {
-			if(s.trim().length() > 0) {
-				tipos.add(s);
-			}
-		}
 		String[] array = new String[tipos.size()];
 		
 		int contador = 0;
@@ -764,6 +786,28 @@ public class MainWindow extends javax.swing.JFrame {
 			GroupLayout panelTiposLayout = new GroupLayout((JComponent)panelTipos);
 			panelTipos.setLayout(panelTiposLayout);
 			panelTipos.setOpaque(false);
+			panelTiposLayout.setVerticalGroup(panelTiposLayout.createSequentialGroup()
+				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(getCheckboxODT(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getLabelDocs(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxTXT(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxDOCX(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxPDF(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxDOC(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(getCheckboxPY(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getJLabel8(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxC(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxJAVA(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+				    .addComponent(getCheckboxXLS(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getJLabel9(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxODS(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(getCheckboxXLSX(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 42, GroupLayout.PREFERRED_SIZE)
+				.addComponent(getCheckboxSelecionarTudo(), GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE));
 			panelTiposLayout.setHorizontalGroup(panelTiposLayout.createSequentialGroup()
 				.addContainerGap()
 				.addGroup(panelTiposLayout.createParallelGroup()
@@ -796,46 +840,16 @@ public class MainWindow extends javax.swing.JFrame {
 				        .addComponent(getCheckboxPDF(), GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 				        .addGap(0, 0, Short.MAX_VALUE))
 				    .addGroup(GroupLayout.Alignment.LEADING, panelTiposLayout.createSequentialGroup()
-				        .addComponent(getJLabel10(), GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+				        .addGap(168)
 				        .addGroup(panelTiposLayout.createParallelGroup()
 				            .addGroup(GroupLayout.Alignment.LEADING, panelTiposLayout.createSequentialGroup()
 				                .addComponent(getCheckboxDOC(), GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				                .addGap(0, 152, Short.MAX_VALUE))
 				            .addGroup(GroupLayout.Alignment.LEADING, panelTiposLayout.createSequentialGroup()
 				                .addComponent(getCheckboxXLSX(), GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-				                .addGap(0, 144, Short.MAX_VALUE))
-				            .addGroup(GroupLayout.Alignment.LEADING, panelTiposLayout.createSequentialGroup()
-				                .addPreferredGap(getCheckboxDOC(), getOutrosTipos(), LayoutStyle.ComponentPlacement.INDENT)
-				                .addComponent(getOutrosTipos(), GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
-				                .addGap(0, 0, Short.MAX_VALUE)))
+				                .addGap(0, 144, Short.MAX_VALUE)))
 				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
 				.addContainerGap(22, 22));
-			panelTiposLayout.setVerticalGroup(panelTiposLayout.createSequentialGroup()
-				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(getCheckboxODT(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getLabelDocs(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxTXT(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxDOCX(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxPDF(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxDOC(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(getCheckboxPY(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getJLabel8(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxC(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxJAVA(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(getCheckboxXLS(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getJLabel9(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxODS(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getCheckboxXLSX(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addGroup(panelTiposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(getOutrosTipos(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(getJLabel10(), GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, 1, Short.MAX_VALUE)
-				.addComponent(getCheckboxSelecionarTudo(), GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE));
 		}
 		return panelTipos;
 	}
@@ -844,6 +858,8 @@ public class MainWindow extends javax.swing.JFrame {
 		if(labelDocs == null) {
 			labelDocs = new JLabel();
 			labelDocs.setText("Documentos");
+			labelDocs.setEnabled(false);
+			labelDoc.setEnabled(false);
 		}
 		return labelDocs;
 	}
@@ -853,6 +869,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxODT = new JCheckBox();
 			checkboxODT.setText(".odt");
 			checkboxODT.setOpaque(false);
+			checkboxODT.setEnabled(false);
 		}
 		return checkboxODT;
 	}
@@ -862,6 +879,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxTXT = new JCheckBox();
 			checkboxTXT.setText(".txt");
 			checkboxTXT.setOpaque(false);
+			checkboxTXT.setEnabled(false);
 		}
 		return checkboxTXT;
 	}
@@ -871,6 +889,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxDOC = new JCheckBox();
 			checkboxDOC.setText(".doc");
 			checkboxDOC.setOpaque(false);
+			checkboxDOC.setEnabled(false);
 		}
 		return checkboxDOC;
 	}
@@ -880,6 +899,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxDOCX = new JCheckBox();
 			checkboxDOCX.setText(".docx");
 			checkboxDOCX.setOpaque(false);
+			checkboxDOCX.setEnabled(false);
 		}
 		return checkboxDOCX;
 	}
@@ -889,6 +909,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxPDF = new JCheckBox();
 			checkboxPDF.setText(".pdf");
 			checkboxPDF.setOpaque(false);
+			checkboxPDF.setEnabled(false);
 		}
 		return checkboxPDF;
 	}
@@ -896,7 +917,9 @@ public class MainWindow extends javax.swing.JFrame {
 	private JLabel getJLabel8() {
 		if(jLabel8 == null) {
 			jLabel8 = new JLabel();
-			jLabel8.setText("Cï¿½digos Fonte");
+			jLabel8.setText("Codigos Fonte");
+			jLabel8.setEnabled(false);
+			jLabel8.setEnabled(false);
 		}
 		return jLabel8;
 	}
@@ -906,6 +929,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxC = new JCheckBox();
 			checkboxC.setText(".c");
 			checkboxC.setOpaque(false);
+			checkboxC.setEnabled(false);
 		}
 		return checkboxC;
 	}
@@ -915,6 +939,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxPY = new JCheckBox();
 			checkboxPY.setText(".py");
 			checkboxPY.setOpaque(false);
+			checkboxPY.setEnabled(false);
 		}
 		return checkboxPY;
 	}
@@ -924,6 +949,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxJAVA = new JCheckBox();
 			checkboxJAVA.setText(".java");
 			checkboxJAVA.setOpaque(false);
+			checkboxJAVA.setEnabled(false);
 		}
 		return checkboxJAVA;
 	}
@@ -932,6 +958,8 @@ public class MainWindow extends javax.swing.JFrame {
 		if(jLabel9 == null) {
 			jLabel9 = new JLabel();
 			jLabel9.setText("Planilhas");
+			jLabel9.setEnabled(false);
+			jLabel9.setEnabled(false);
 		}
 		return jLabel9;
 	}
@@ -941,6 +969,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxODS = new JCheckBox();
 			checkboxODS.setText(".ods");
 			checkboxODS.setOpaque(false);
+			checkboxODS.setEnabled(false);
 		}
 		return checkboxODS;
 	}
@@ -950,6 +979,7 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxXLS = new JCheckBox();
 			checkboxXLS.setText(".xls");
 			checkboxXLS.setOpaque(false);
+			checkboxXLS.setEnabled(false);
 		}
 		return checkboxXLS;
 	}
@@ -959,29 +989,17 @@ public class MainWindow extends javax.swing.JFrame {
 			checkboxXLSX = new JCheckBox();
 			checkboxXLSX.setText(".xlsx");
 			checkboxXLSX.setOpaque(false);
+			checkboxXLSX.setEnabled(false);
 		}
 		return checkboxXLSX;
 	}
-	
-	private JLabel getJLabel10() {
-		if(jLabel10 == null) {
-			jLabel10 = new JLabel();
-			jLabel10.setText("Outros (adicione separado por \";\")");
-		}
-		return jLabel10;
-	}
-	
-	private JTextField getOutrosTipos() {
-		if(outrosTipos == null) {
-			outrosTipos = new JTextField();
-		}
-		return outrosTipos;
-	}
-	
+
 	private JCheckBox getCheckboxSelecionarTudo() {
 		if(checkboxSelecionarTudo == null) {
 			checkboxSelecionarTudo = new JCheckBox();
 			checkboxSelecionarTudo.setText("Selecionar Tudo");
+			checkboxSelecionarTudo.setOpaque(false);
+			checkboxSelecionarTudo.setEnabled(false);
 			checkboxSelecionarTudo.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent evt) {
 					checkboxSelecionarTudoStateChanged(evt);
@@ -1030,7 +1048,9 @@ public class MainWindow extends javax.swing.JFrame {
 	private void areaResultadosMouseClicked(MouseEvent evt) {
 		if (areaResultados.getSelectedValue() != null){
 			JFrame detalhes = new JFrame("Detalhes");
-			detalhes.setSize(500, 400);
+			detalhes.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")).getImage());
+			detalhes.setSize(600, 400);
+			detalhes.setFont(new java.awt.Font("Tahoma",0,14));
 			detalhes.setResizable(false);
 			detalhes.setVisible(true);
 			
@@ -1040,6 +1060,7 @@ public class MainWindow extends javax.swing.JFrame {
 			contentPane.setLayout(vBox);
 			
 			Container inner = new Container();
+			inner.setFont(new java.awt.Font("Tahoma",0,14));
 			BoxLayout hBox = new BoxLayout(inner, 0);
 			inner.setLayout(hBox);
 			
@@ -1051,7 +1072,8 @@ public class MainWindow extends javax.swing.JFrame {
 				nome = path.split("\'")[path.split("\'").length - 1];
 			else
 				nome = path.split("/")[path.split("/").length - 1];
-			inner.add(new JLabel("Arquivo: " +  nome + "        "));
+				System.out.println(nome.split("\'").length);
+			inner.add(new JLabel("Arquivo: " +  getFilename(nome) + "        "));
 			
 			JButton abrirArquivo = new JButton("Abrir arquivo");
 			
@@ -1072,6 +1094,12 @@ public class MainWindow extends javax.swing.JFrame {
 		}
 	}
 	
+	private String getFilename(String path) {		
+		  File file = new File(path);		  
+		  return file.getName();
+		      
+	}
+	
 	private void abrirArquivoMouseClicked(MouseEvent evt, String path) throws IOException {
 		File file = new File(path);
 		Desktop desktop = null;
@@ -1080,5 +1108,48 @@ public class MainWindow extends javax.swing.JFrame {
 	        desktop.open(file);
 		}
 		System.out.println("abrir o arquivo que esta aqui: " + path);
+	}
+	
+	private JCheckBox getCheckBoxFiltraTipo() {
+		if(checkBoxFiltraTipo == null) {
+			checkBoxFiltraTipo = new JCheckBox();
+			checkBoxFiltraTipo.setOpaque(false);
+			checkBoxFiltraTipo.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent evt) {
+					checkBoxFiltraTipoStateChanged(evt);
+				}
+			});
+		}
+		return checkBoxFiltraTipo;
+	}
+	
+	private void checkBoxFiltraTipoStateChanged(ChangeEvent evt) {
+		checkboxC.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxC.setSelected(false);
+		checkboxDOC.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxDOC.setSelected(false);
+		checkboxDOCX.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxDOCX.setSelected(false);
+		checkboxJAVA.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxJAVA.setSelected(false);
+		checkboxODS.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxODS.setSelected(false);
+		checkboxODT.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxODT.setSelected(false);
+		checkboxPDF.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxPDF.setSelected(false);
+		checkboxPY.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxPY.setSelected(false);
+		checkboxTXT.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxSelecionarTudo.setSelected(false);
+		checkboxTXT.setSelected(false);
+		checkboxXLS.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxXLS.setSelected(false);
+		checkboxXLSX.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxXLSX.setSelected(false);
+		jLabel8.setEnabled(checkBoxFiltraTipo.isSelected());
+		jLabel9.setEnabled(checkBoxFiltraTipo.isSelected());
+		labelDocs.setEnabled(checkBoxFiltraTipo.isSelected());
+		checkboxSelecionarTudo.setEnabled(checkBoxFiltraTipo.isSelected());
 	}
 }
