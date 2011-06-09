@@ -1,5 +1,12 @@
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -626,7 +633,14 @@ public class MainWindow extends javax.swing.JFrame {
 					{
 						helpMenuItem = new JMenuItem();
 						jMenu5.add(helpMenuItem);
-						helpMenuItem.setText("Help");
+						helpMenuItem.setText("About");
+						helpMenuItem.addActionListener(new ActionListener() {
+				            public void actionPerformed(ActionEvent event) {
+				                AboutWindow w = new AboutWindow();
+				                centerAndShow(w);
+				            }
+
+				        });
 					}
 				}
 			}
@@ -1051,9 +1065,7 @@ public class MainWindow extends javax.swing.JFrame {
 			detalhes.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")).getImage());
 			detalhes.setSize(600, 400);
 			detalhes.setFont(new java.awt.Font("Tahoma",0,14));
-			detalhes.setResizable(false);
-			detalhes.setVisible(true);
-			
+			detalhes.setResizable(false);			
 			
 			Container contentPane = detalhes.getContentPane();
 			BoxLayout vBox = new BoxLayout(contentPane, 1);
@@ -1091,6 +1103,8 @@ public class MainWindow extends javax.swing.JFrame {
 			JTextArea sumario = new JTextArea(resultados.get(areaResultados.getSelectedIndex()).getSumario());
 			JScrollPane scroll = new JScrollPane(sumario); 
 			contentPane.add(scroll);
+			
+			centerAndShow(detalhes);
 		}
 	}
 	
@@ -1152,4 +1166,25 @@ public class MainWindow extends javax.swing.JFrame {
 		labelDocs.setEnabled(checkBoxFiltraTipo.isSelected());
 		checkboxSelecionarTudo.setEnabled(checkBoxFiltraTipo.isSelected());
 	}
+	
+	public static void centerAndShow(Window aWindow){
+	    
+	    aWindow.pack();
+
+	    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+	    Dimension window = aWindow.getSize();
+
+	    if (window.height > screen.height) {
+	      window.height = screen.height;
+	    }
+	    if (window.width > screen.width) {
+	      window.width = screen.width;
+	    }
+	    int xCoord = (screen.width/2 - window.width/2);
+	    int yCoord = (screen.height/2 - window.height/2);
+	    aWindow.setLocation( xCoord, yCoord );
+	   
+	    aWindow.show();
+	  }
+	
 }
