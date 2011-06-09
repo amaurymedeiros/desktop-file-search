@@ -1,5 +1,6 @@
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -43,6 +45,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -51,6 +54,7 @@ import net.sf.nachocalendar.components.DateField;
 
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexNotFoundException;
+import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.store.NoSuchDirectoryException;
 
 /**
@@ -675,14 +679,34 @@ public class MainWindow extends javax.swing.JFrame {
 	
 	
 	private void botaoReindexarMouseClicked(MouseEvent evt) throws CorruptIndexException, IOException {
-		Facade f = new Facade();
-		String[] tiposSuportados = { "txt", "pdf", "doc", "docx", "py", "c", "cpp",
+		final Facade f = new Facade();
+		final String[] tiposSuportados = { "txt", "pdf", "doc", "docx", "py", "c", "cpp",
 				"java", "ppt", ".xls", ".xlsx", ".ods" };
+		final Dialog pBar = new Dialog(this);
+		pBar.setSize(300, 100);
 		JProgressBar progress = new JProgressBar(0, 100);
-
 	    progress.setIndeterminate(true);
-		
-		f.index(labelNomeDiretorio.getText(), tiposSuportados);
+	    Border border = BorderFactory.createTitledBorder("Indexando...");
+	    progress.setBorder(border);
+	    pBar.add(progress);
+	    pBar.setModal(true);
+	    
+	    Thread t1 = new Thread() {  
+	        public void run() {  
+	        	try {
+					f.index(labelNomeDiretorio.getText(), tiposSuportados);
+				} catch (CorruptIndexException e) {
+					e.printStackTrace();
+				} catch (LockObtainFailedException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	        	pBar.setVisible(false);
+	        }  
+	      };  
+		t1.start();
+		centerAndShow(pBar);  
 	}
 	
 	private void botaoPesquisarMouseClicked(MouseEvent evt) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException {
