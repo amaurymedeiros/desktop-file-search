@@ -35,6 +35,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -109,6 +110,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private JCheckBox checkXls;
 	private JCheckBox checkPptx;
 	private JCheckBox checkboxDOC;
+	private JScrollPane scrollResultados;
 	private JCheckBox checkBoxFiltraTipo;
 	private JLabel labelResultados;
 	private JCheckBox checkboxSelecionarTudo;
@@ -187,25 +189,13 @@ public class MainWindow extends javax.swing.JFrame {
 			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")).getImage());
 			this.setTitle("PCS Desktop Searcher");
 			{
-				areaResultados = new JList();
-				areaResultados.setFont(new java.awt.Font("Tahoma",0,14));
-				areaResultados.setBackground(new java.awt.Color(255,255,255));
-				areaResultados.setOpaque(false);
-	
-				areaResultados.addMouseListener(new MouseAdapter() {
-					public void mouseClicked(MouseEvent evt) {
-						areaResultadosMouseClicked(evt);
-					}
-				});
-			}
-			{
 				panel = new JPanel();
 				GroupLayout panelLayout = new GroupLayout((JComponent)panel);
 				panel.setLayout(panelLayout);
 				panel.setOpaque(false);
 				{
 					labelResultadoPagina = new JLabel();
-					labelResultadoPagina.setText("Numero Máximo de Resultados");
+					labelResultadoPagina.setText("Numero Mï¿½ximo de Resultados");
 				}
 				{
 					numeroResultados = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
@@ -564,65 +554,68 @@ public class MainWindow extends javax.swing.JFrame {
 				        .addGap(12)
 				        .addGroup(thisLayout.createParallelGroup()
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+				                .addGap(11))
+				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				                .addGroup(thisLayout.createParallelGroup()
 				                    .addComponent(getCheckBoxFiltraTipo(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
 				                    .addComponent(Tipos, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				                .addComponent(getPanelTipos(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-				                .addGap(11)))))
+				                .addComponent(getPanelTipos(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))))
 				.addGap(22)
 				.addComponent(getLabelResultados(), GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addComponent(areaResultados, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(getScrollResultados(), 0, 214, Short.MAX_VALUE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(thisLayout.createParallelGroup()
-				    .addGroup(thisLayout.createSequentialGroup()
-				        .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+				    .addComponent(jLabel2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addGap(34)
-				        .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(12, Short.MAX_VALUE));
+				        .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
+				.addContainerGap());
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addGap(7)
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(thisLayout.createSequentialGroup()
 				        .addGroup(thisLayout.createParallelGroup()
-				            .addComponent(areaPesquisa, GroupLayout.Alignment.LEADING, 0, 895, Short.MAX_VALUE)
+				            .addComponent(areaPesquisa, GroupLayout.Alignment.LEADING, 0, 911, Short.MAX_VALUE)
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				                .addComponent(botaoReindexar, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-				                .addGap(0, 176, Short.MAX_VALUE)
-				                .addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				                .addGap(95)))
+				                .addGap(0, 783, Short.MAX_VALUE)))
 				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				        .addGroup(thisLayout.createParallelGroup()
 				            .addComponent(jLabel2, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-				            .addComponent(botaoPesquisar, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-				        .addGap(7))
+				            .addComponent(botaoPesquisar, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addComponent(panelDiretorio, GroupLayout.PREFERRED_SIZE, 1000, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 9, Short.MAX_VALUE))
-				    .addComponent(areaResultados, GroupLayout.Alignment.LEADING, 0, 1009, Short.MAX_VALUE)
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addGap(0, 18, Short.MAX_VALUE))
+				    .addComponent(getScrollResultados(), GroupLayout.Alignment.LEADING, 0, 1018, Short.MAX_VALUE)
+				    .addGroup(thisLayout.createSequentialGroup()
 				        .addGap(7)
 				        .addGroup(thisLayout.createParallelGroup()
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addComponent(Tipos, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				                .addComponent(getCheckBoxFiltraTipo(), GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-				                .addGap(230))
-				            .addComponent(getPanelTipos(), GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
+				                .addGroup(thisLayout.createParallelGroup()
+				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                        .addComponent(Tipos, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				                        .addGap(7)
+				                        .addComponent(getCheckBoxFiltraTipo(), GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				                        .addGap(18)
+				                        .addComponent(getLabelResultados(), GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+				                        .addGap(14)))
+				                .addGap(0, 187, Short.MAX_VALUE)
+				                .addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				                .addGap(190))
 				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addGap(18)
-				                .addComponent(getLabelResultados(), GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-				                .addGap(239)))
-				        .addGap(23)
-				        .addComponent(panel, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
-				        .addGap(50)
-				        .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 13, Short.MAX_VALUE)))
-				.addContainerGap());
+				                .addComponent(getPanelTipos(), GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
+				                .addGap(33)
+				                .addComponent(panel, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+				                .addGap(50)
+				                .addComponent(panelData, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE)
+				                .addGap(0, 0, Short.MAX_VALUE)))
+				        .addGap(12)))
+				.addGap(7));
 			this.setSize(1034, 737);
 			{
 				jMenuBar1 = new JMenuBar();
@@ -685,6 +678,10 @@ public class MainWindow extends javax.swing.JFrame {
 		Facade f = new Facade();
 		String[] tiposSuportados = { "txt", "pdf", "doc", "docx", "py", "c", "cpp",
 				"java", "ppt", ".xls", ".xlsx", ".ods" };
+		JProgressBar progress = new JProgressBar(0, 100);
+
+	    progress.setIndeterminate(true);
+		
 		f.index(labelNomeDiretorio.getText(), tiposSuportados);
 	}
 	
@@ -1066,7 +1063,7 @@ public class MainWindow extends javax.swing.JFrame {
 			detalhes.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")).getImage());
 			detalhes.setSize(600, 400);
 			detalhes.setFont(new java.awt.Font("Tahoma",0,14));
-			detalhes.setResizable(false);			
+			detalhes.setResizable(false);		
 			
 			Container contentPane = detalhes.getContentPane();
 			BoxLayout vBox = new BoxLayout(contentPane, 1);
@@ -1080,13 +1077,7 @@ public class MainWindow extends javax.swing.JFrame {
 			contentPane.add(inner);
 			
 			final String path = resultados.get(areaResultados.getSelectedIndex()).getPath();
-			String nome = "";
-			if (path.contains("\'"))
-				nome = path.split("\'")[path.split("\'").length - 1];
-			else
-				nome = path.split("/")[path.split("/").length - 1];
-				System.out.println(nome.split("\'").length);
-			inner.add(new JLabel("Arquivo: " +  getFilename(nome) + "        "));
+			inner.add(new JLabel("Arquivo: " +  getFilename(path) + "        "));
 			
 			JButton abrirArquivo = new JButton("Abrir arquivo");
 			
@@ -1112,7 +1103,6 @@ public class MainWindow extends javax.swing.JFrame {
 	private String getFilename(String path) {		
 		  File file = new File(path);		  
 		  return file.getName();
-		      
 	}
 	
 	private void abrirArquivoMouseClicked(MouseEvent evt, String path) throws IOException {
@@ -1175,12 +1165,6 @@ public class MainWindow extends javax.swing.JFrame {
 	    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 	    Dimension window = aWindow.getSize();
 
-	    if (window.height > screen.height) {
-	      window.height = screen.height;
-	    }
-	    if (window.width > screen.width) {
-	      window.width = screen.width;
-	    }
 	    int xCoord = (screen.width/2 - window.width/2);
 	    int yCoord = (screen.height/2 - window.height/2);
 	    aWindow.setLocation( xCoord, yCoord );
@@ -1188,4 +1172,25 @@ public class MainWindow extends javax.swing.JFrame {
 	    aWindow.show();
 	  }
 	
+	private JScrollPane getScrollResultados() {
+		if(scrollResultados == null) {
+			scrollResultados = new JScrollPane();
+			{
+				areaResultados = new JList();
+				scrollResultados.setViewportView(areaResultados);
+				areaResultados.setFont(new java.awt.Font("Tahoma",0,14));
+				areaResultados.setBackground(new java.awt.Color(255,255,255));
+				areaResultados.setOpaque(false);
+				areaResultados.setPreferredSize(new java.awt.Dimension(105, 75));
+
+				areaResultados.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent evt) {
+						areaResultadosMouseClicked(evt);
+					}
+				});
+			}
+		}
+		return scrollResultados;
+	}
+
 }
