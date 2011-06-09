@@ -1198,15 +1198,13 @@ public class MainWindow extends javax.swing.JFrame {
 	
 	private JScrollPane getScrollResultados() {
 		if(scrollResultados == null) {
-			scrollResultados = new JScrollPane();
+			scrollResultados = new JScrollPane(areaResultados);
 			{
 				areaResultados = new JList();
 				scrollResultados.setViewportView(areaResultados);
 				areaResultados.setFont(new java.awt.Font("Tahoma",0,14));
 				areaResultados.setBackground(new java.awt.Color(255,255,255));
 				areaResultados.setOpaque(false);
-				areaResultados.setPreferredSize(new java.awt.Dimension(105, 75));
-
 				areaResultados.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						areaResultadosMouseClicked(evt);
