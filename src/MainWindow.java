@@ -191,6 +191,7 @@ public class MainWindow extends javax.swing.JFrame {
 				areaResultados.setFont(new java.awt.Font("Tahoma",0,14));
 				areaResultados.setBackground(new java.awt.Color(255,255,255));
 				areaResultados.setOpaque(false);
+	
 				areaResultados.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						areaResultadosMouseClicked(evt);
@@ -207,7 +208,7 @@ public class MainWindow extends javax.swing.JFrame {
 					labelResultadoPagina.setText("Numero Máximo de Resultados");
 				}
 				{
-					numeroResultados = new JSpinner(new SpinnerNumberModel(10, 1, 10, 1));
+					numeroResultados = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
 
 				}
 						panelLayout.setHorizontalGroup(panelLayout.createSequentialGroup()
