@@ -35,11 +35,11 @@ public class Searcher {
 		this.analyzer = analyzer;
 	}
 
-	public List<ResultadoDeBusca> search(String query, String[] formato, Date min, Date max,
+	public List<SearchResult> search(String query, String[] formato, Date min, Date max,
 			long sizeMin, long sizeMax) throws java.text.ParseException,
 			CorruptIndexException, IOException, ParseException {
 		BooleanQuery q = new BooleanQuery();
-		List<ResultadoDeBusca> resultados = new ArrayList<ResultadoDeBusca>();
+		List<SearchResult> resultados = new ArrayList<SearchResult>();
 
 		if (query != null) {
 			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
@@ -74,7 +74,7 @@ public class Searcher {
 
 		int quant_results = 0;
 		for (int i = 0; i < hits.length; ++i) {
-			ResultadoDeBusca r = new ResultadoDeBusca();
+			SearchResult r = new SearchResult();
 			boolean date_ok = false;
 			boolean size_ok = false;
 			int docId = hits[i].doc;

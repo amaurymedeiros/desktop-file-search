@@ -33,9 +33,9 @@ public class Facade {
 	}
 	
 	
-	public List<ResultadoDeBusca> search( String[] formats, int hitsPerPage, Date dataInicial, Date dataFinal, String query) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException{
+	public List<SearchResult> search( String[] formats, int hitsPerPage, Date dataInicial, Date dataFinal, String query) throws CorruptIndexException, IOException, ParseException, org.apache.lucene.queryParser.ParseException{
 		Searcher searcher = new Searcher(indexDir, analyzer, hitsPerPage);
-		List<ResultadoDeBusca> result = searcher.search(query, formats, dataInicial, dataFinal, 0, Long.MAX_VALUE);
+		List<SearchResult> result = searcher.search(query, formats, dataInicial, dataFinal, 0, Long.MAX_VALUE);
 		return result;
 	}
 	

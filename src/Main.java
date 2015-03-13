@@ -85,7 +85,7 @@ public class Main {
 
 				Searcher searcher = new Searcher(indexDir, analyzer, hitsPerPage);
 
-				List<ResultadoDeBusca> result = searcher.search(query, formats, min, max, 0,
+				List<SearchResult> result = searcher.search(query, formats, min, max, 0,
 						Long.MAX_VALUE);
 				System.out.println(result);
 				// searcher.search();

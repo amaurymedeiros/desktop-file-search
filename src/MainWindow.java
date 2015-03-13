@@ -155,7 +155,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private JMenuBar jMenuBar1;
 	private ArrayList<JCheckBox> listaCheckBoxes = new ArrayList<JCheckBox>();
 	private JFileChooser chooser;
-	private List<ResultadoDeBusca> resultados;
+	private List<SearchResult> resultados;
 
 	/**
 	* Auto-generated main method to display this JFrame
