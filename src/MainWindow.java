@@ -190,11 +190,11 @@ public class MainWindow extends javax.swing.JFrame {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			this.setFont(new java.awt.Font("Catull",0,18));
-			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")).getImage());
-			this.setTitle("PCS Desktop Searcher");
-			{
-				panel = new JPanel();
-				GroupLayout panelLayout = new GroupLayout((JComponent)panel);
+            this.setIconImage(new ImageIcon("img/PCS.png").getImage());
+            this.setTitle("PCS Desktop Searcher");
+            {
+                panel = new JPanel();
+				GroupLayout panelLayout = new GroupLayout(panel);
 				panel.setLayout(panelLayout);
 				panel.setOpaque(false);
 				{
@@ -492,11 +492,11 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 			{
 				labelTitulo = new JLabel();
-				labelTitulo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/header.png")));
+				labelTitulo.setIcon(new ImageIcon("img/header.png"));
 			}
 			{
 				jLabel2 = new JLabel();
-				jLabel2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")));
+				jLabel2.setIcon(new ImageIcon("img/PCS.png"));
 			}
 			{
 				botaoReindexar = new JButton();

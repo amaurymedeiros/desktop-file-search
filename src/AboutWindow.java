@@ -60,7 +60,7 @@ public class AboutWindow extends javax.swing.JDialog {
 	
 	public AboutWindow() {
 		initGUI();
-		this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")).getImage());
+		this.setIconImage(new ImageIcon("img/PCS.png").getImage());
 	}
 	
 	private void initGUI() {
@@ -69,7 +69,7 @@ public class AboutWindow extends javax.swing.JDialog {
 			getContentPane().setLayout(thisLayout);
 			{
 				labelPCS = new JLabel();
-				labelPCS.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")));
+				labelPCS.setIcon(new ImageIcon("img/PCS.png"));
 			}
 			{
 				panelInfos = new JPanel();
