@@ -190,7 +190,7 @@ public class MainWindow extends javax.swing.JFrame {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			this.setFont(new java.awt.Font("Catull",0,18));
-			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")).getImage());
+			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")).getImage());
 			this.setTitle("PCS Desktop Searcher");
 			{
 				panel = new JPanel();
@@ -492,11 +492,11 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 			{
 				labelTitulo = new JLabel();
-				labelTitulo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagens/header.png")));
+				labelTitulo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/header.png")));
 			}
 			{
 				jLabel2 = new JLabel();
-				jLabel2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")));
+				jLabel2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")));
 			}
 			{
 				botaoReindexar = new JButton();
@@ -1084,7 +1084,7 @@ public class MainWindow extends javax.swing.JFrame {
 	private void areaResultadosMouseClicked(MouseEvent evt) {
 		if (areaResultados.getSelectedValue() != null){
 			JFrame detalhes = new JFrame("Detalhes");
-			detalhes.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagens/PCS.png")).getImage());
+			detalhes.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("img/PCS.png")).getImage());
 			detalhes.setSize(600, 400);
 			detalhes.setFont(new java.awt.Font("Tahoma",0,14));
 			detalhes.setResizable(false);		
